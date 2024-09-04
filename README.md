@@ -7,4 +7,4 @@ The classes we added are the CyberneticOrgan class, Patient class, and the Organ
 The CyberneticOrgan class provides information on the Cybernetic Organ details such as model, id, the function, and its compatibility to the patient. The method getDetails() provides a "Getter" to the class on the information listed earlier. The method isCompatible() provides the information if an organ is compatible.
 The Patient class holds information on the operating patient such as name, age, medical history, and installed organs. The method addOrgan() adds an organ to the installed organ field of a patient. The getPatientInfo() method provides the field information for the Patient.
 The OrganInventory class holds information on the available organs and how they match against model numbers in the CyberneticOrgan class model field. Methods getOrgan() and addOrgan() adjust the contents of the inventory to match updated inventory.
-Added new branch to repository of 'assignment-1c'
+Added new branch to repository of 'assignment-1c' for the new content of adding classes, fields and methods
