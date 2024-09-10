@@ -5,8 +5,8 @@ public class CyberneticOrgan
 {
     // Fields of the CyberneticOrgan class
     private int id;
-    private String model;
-    private String functionality;
+    protected String model;
+    protected static String functionality;
     private String compatibility;
 
     /**
@@ -21,6 +21,16 @@ public class CyberneticOrgan
         String compatibilityDetails = "The compatibility is: " + compatibility;
 
         return idDetails + "\n" + modelDetails + "\n" + functionalityDetails + "\n" + compatibilityDetails;
+    }
+
+    /**
+     * The getModel method returns the model for the organ
+     * @return String of the get model of the organ
+     * */
+
+    public String getModel()
+    {
+        return model;
     }
 
     /**
