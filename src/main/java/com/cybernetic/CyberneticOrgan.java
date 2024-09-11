@@ -6,8 +6,75 @@ public class CyberneticOrgan
     // Fields of the CyberneticOrgan class
     private int id;
     protected String model;
-    protected static String functionality;
+    protected String functionality;
     private String compatibility;
+
+
+    //Constructor, with args
+    public CyberneticOrgan(int num, String mod, String function, String compatible)
+    {
+      id = num;
+      model = mod;
+      functionality = function;
+      compatibility = compatible;
+    }
+
+    //No-Arg Constructor
+    public CyberneticOrgan()
+    {
+        id = 0;
+        model = null;
+        functionality = null;
+        compatibility = null;
+    }
+
+    /**
+     * SETTERS
+     * The setId, setModel, setFunctionality, and setCompatibility methods are able to set fields of the organ object
+     * */
+    public void setId(int x)
+    {
+        id = x;
+    }
+
+    public void setModel(String x)
+    {
+        model = x;
+    }
+
+    public void setFunctionality(String x)
+    {
+        functionality = x;
+    }
+
+    public void setCompatibility(String x)
+    {
+        compatibility = x;
+    }
+
+    /**
+     * GETTERS
+     * The getId, getModel, getFunctionality, and getCompatibility method returns the designated field for the organ
+     * */
+    public int getId()
+    {
+        return id;
+    }
+
+    public String getModel()
+    {
+        return model;
+    }
+
+    public String getFunctionality()
+    {
+        return functionality;
+    }
+
+    public String getCompatibility()
+    {
+        return compatibility;
+    }
 
     /**
      * The getDetails method returns details on the Organ instance
@@ -21,16 +88,6 @@ public class CyberneticOrgan
         String compatibilityDetails = "The compatibility is: " + compatibility;
 
         return idDetails + "\n" + modelDetails + "\n" + functionalityDetails + "\n" + compatibilityDetails;
-    }
-
-    /**
-     * The getModel method returns the model for the organ
-     * @return String of the get model of the organ
-     * */
-
-    public String getModel()
-    {
-        return model;
     }
 
     /**

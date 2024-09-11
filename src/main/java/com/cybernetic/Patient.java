@@ -8,10 +8,25 @@ import java.util.List;
 public class Patient {
 
     // Fields of the Patient class
-    private String name;
+    private static String name;
     private int age;
     private String medicalHistory;
-    private CyberneticOrgan[] CyberneticOrganArr = new CyberneticOrgan[5];
+    private CyberneticOrgan[] installedOrgans = new CyberneticOrgan[5];
+
+    //Constructor with args
+    public Patient(String person, int years, String medHistory)
+    {
+        name = person;
+        age = years;
+        medicalHistory = medHistory;
+    }
+    //No-Args Constructor
+    public Patient()
+    {
+        name = null;
+        age = 0;
+        medicalHistory = null;
+    }
 
     /**
      *  The addOrgan method takes the added CyberneticOrgan and adds it to the array.
@@ -21,15 +36,22 @@ public class Patient {
     public String addOrgan(CyberneticOrgan organ)
     {
         //If the maximum array value is empty, add new organ
-        if(CyberneticOrganArr[4] == null)
-        {
-            CyberneticOrganArr[4] = organ;
+        for(int i = 0; i < installedOrgans.length; i++) {
+            if (installedOrgans[4] != null)
+            {
+                return "Error, " + organ.model + " cannot be added. Maximum organs added.";
+            }
+            else if(installedOrgans[i] != null)
+            {
+                continue;
+            }
+            else
+            {
+                installedOrgans[i] = organ;
+                break;
+            }
         }
-        else //else, display error and end the method
-        {
-           return "Error, " + organ + " cannot be added. Maximum organs added.";
-        }
-        return "Organ " + organ + " has been added!";
+        return "Organ " + organ.model + " has been added to " + Patient.name + "'s installed organs.\n";
     }
 
     /**
@@ -45,12 +67,12 @@ public class Patient {
         //using an enhanced for-loop to determine installed organs
         String installedOrgansList = "";
 
-        if(CyberneticOrganArr[0] == null)  //if first value of array is empty, state empty
+        if(installedOrgans[0] == null)  //if first value of array is empty, state empty
         {
             installedOrgansList = "empty.";
         }
 
-        for(CyberneticOrgan x: CyberneticOrganArr)
+        for(CyberneticOrgan x: installedOrgans)
         {
             if(x == null)
             {
@@ -74,9 +96,9 @@ public class Patient {
     public ArrayList<CyberneticOrgan> getOrganList()
     {
         //convert the CyberneticOrgan object array into an ArrayList of CyberneticOrgan objects
-        List<CyberneticOrgan> newList = Arrays.asList(CyberneticOrganArr);
+        ArrayList<CyberneticOrgan> newList = new ArrayList<>(Arrays.asList(installedOrgans));
 
-        return (ArrayList<CyberneticOrgan>) newList; //**attention to this, why the prefix to newList
+        return newList; //**attention to this, why the prefix to newList
     }
 
 }

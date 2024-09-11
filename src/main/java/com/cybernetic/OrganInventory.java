@@ -17,8 +17,9 @@ public class OrganInventory {
      */
     public String addOrgan(CyberneticOrgan organ)
     {
+        System.out.println("Adding organs to inventory..");
         inventoryList.add(organ);
-        return "You've added " + organ + " organ to the inventory!";
+        return "You've added " + organ.model + " organ to the inventory!\n";
     }
 
 
@@ -83,6 +84,8 @@ public class OrganInventory {
 
     public ArrayList<CyberneticOrgan> searchOrganByFunctionality(String functionality)
     {
+        System.out.println("Searching for organs with the functionality: " + functionality);
+
         //new ArrayList to return to method
         ArrayList<CyberneticOrgan> searchedList = new ArrayList<>();
 
@@ -91,7 +94,7 @@ public class OrganInventory {
 
         for (CyberneticOrgan x : inventoryList)
         {
-            if (CyberneticOrgan.functionality.equals(functionality)) {
+            if (x.functionality.equals(functionality)) {
                 searchedList.add(x);
                 organFound = true;
             }
@@ -107,13 +110,13 @@ public class OrganInventory {
     }
 
     /** The sortOrgansByModel method has several parts to it.
-     * Resources Attributed Online for Support/Structure for Comparator:
+     * Resources Attributed Online only used for Support/Structure for this method, and understanding Comparator:
      * ChatGPT: https://chatgpt.com/ -- Date: 09/10/2024 -- Structure/Knowledge
      * BeginnersBook: https://beginnersbook.com/2013/12/java-arraylist-of-object-sort-example-comparable-and-comparator/ -- Date: 09/10/2024 -- Knowledge
      *
      * First, the method creates a Comparator list modelSorted.
      * Second, the method uses the compare method on CyberneticOrgans to compare each one of the models of the organs for sorting.
-     * Third, the Collections.sort method uses the comparator to sort the inventoryList
+     * Third, the Collections.Sort method uses the comparator to sort the inventoryList
      * @return the sorted inventoryList is now sorted by model name
      *
      * *All websites are used as support for learning the new material in this method
