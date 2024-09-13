@@ -8,7 +8,9 @@ public class CyberneticOrgan
     protected String model;
     protected String functionality;
     private String compatibility;
-
+    protected int health;
+    protected int healthMin = 0; //minimum value of health, 0
+    protected int healthMax = 100; //maximum value of health, 100
 
     //Constructor, with args
     public CyberneticOrgan(int num, String mod, String function, String compatible)

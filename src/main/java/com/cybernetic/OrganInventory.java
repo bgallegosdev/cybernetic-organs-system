@@ -121,16 +121,16 @@ public class OrganInventory {
      *
      * *All websites are used as support for learning the new material in this method
      * */
+    Comparator<CyberneticOrgan> modelSorted = new Comparator<CyberneticOrgan>() {
+        @Override
+        public int compare(CyberneticOrgan o1, CyberneticOrgan o2) {
+            return o1.getModel().compareTo(o2.getModel());
+        }
+    };
 
     public ArrayList<CyberneticOrgan> sortOrgansByModel()
     {
         //Using a comparator
-        Comparator<CyberneticOrgan> modelSorted = new Comparator<CyberneticOrgan>() {
-            @Override
-            public int compare(CyberneticOrgan o1, CyberneticOrgan o2) {
-                return o1.getModel().compareTo(o2.getModel());
-            }
-        };
 
         //Sorting the list, using comparator
         Collections.sort(inventoryList, modelSorted);
