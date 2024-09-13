@@ -7,6 +7,8 @@ public class Main
 {
     public static void main(String[] args)
     {
-
+        //Create Cybernetic Organ Object for Recursion Simulation
+        CyberneticOrgan trifecta = new CyberneticOrgan();
+        trifecta.startSimulation(10);
     }
 }
