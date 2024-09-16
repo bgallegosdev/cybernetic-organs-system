@@ -1,6 +1,8 @@
 //Work done by Student Name: Benjamin Gallegos
 package com.cybernetic;
 
+import java.util.Random;
+
 public class CyberneticOrgan
 {
     // Fields of the CyberneticOrgan class
@@ -11,6 +13,10 @@ public class CyberneticOrgan
     protected int health; //health value of the organ
     protected int healthMin = 0; //minimum value of health, 0
     protected int healthMax = 100; //maximum value of health, 100
+    protected int minRan = -10; //minimum value for random number generation of 10% random health change
+    protected int maxRan = 10; //maximum value for random number generation of 10% random health change
+    private int randOrgChoice; //randomly chosen organ to affect
+
 
     //Constructor, with args
     public CyberneticOrgan(int num, String mod, String function, String compatible)
@@ -106,15 +112,26 @@ public class CyberneticOrgan
         return patientCompatibility;
     }
 
-    public void startSimulation(int n)
+    public void startSimulation(int n, Heart h, Lung l, Brain b)
     {
         if(n == 0) //BASE CASE
         {
+            System.out.println("Simulation Ended:");
+            System.out.println("Time: " + n);
+            System.out.println("Heart Health " + h.getHealth());
+            System.out.println("Lung Health: " + l.getHealth());
+            System.out.println("Brain Health: " + b.getHealth());
+
+            if (h.getHealth() == 0 || l.getHealth() == 0 || b.getHealth() == 0)
+            {
+                System.out.println("Simulation Result: FAILURE");
+            }
+            else
+            {
+                System.out.println("Simulation Result: SUCCESS");
+            }
             return;
         }
-        Heart h = new Heart();
-        Lung l = new Lung();
-        Brain b = new Brain();
 
         if(n == 100)
         {
@@ -127,13 +144,64 @@ public class CyberneticOrgan
 
         if (n < 100){
             System.out.println("Time: " + n);
-            h.heartUpdate(b, l);
-            l.lungUpdate(h);
-            b.brainUpdate(l);
+            randOrgChoice = randomEvent();
+//            System.out.println("Random Organ Choice: " + randOrgChoice); //debugging
+            h.heartUpdate(b, l, randOrgChoice, n);
+            l.lungUpdate(h, randOrgChoice, n);
+            b.brainUpdate(l, randOrgChoice, n);
             System.out.println("Heart Health " + h.getHealth() + "| Pump Rate: " + h.getPumpRate());
             System.out.println("Lung Health: " + l.getHealth() + "| Oxygen Level: " + l.getOxygenLevel());
             System.out.println("Brain Health: " + b.getHealth() + "| Control Efficiency Level: " + b.getControlEfficiency() + "\n");
+
+            //Health Alerts
+            if(h.getHealth() < 35)
+            {
+                System.out.println("ALERT at Time: " + n + ": Heart Critical! Health is below 35%");
+            }
+            else if(h.getHealth() == 0)
+            {
+                n = 0;
+            }
+
+            if(l.getHealth() < 35)
+            {
+                System.out.println("ALERT at Time: " + n + ": Lung Critical! Health is below 35%");
+            }
+            else if(l.getHealth() == 0)
+            {
+                n = 0;
+            }
+
+            if(b.getHealth() < 35)
+            {
+                System.out.println("ALERT at Time: " + n + ": Brain Critical! Health is below 35%");
+            }
+            else if(b.getHealth() == 0)
+            {
+                n = 0;
+            }
         }
-        startSimulation(n-1);
+        startSimulation(n-1, h, l, b);
+    }
+
+    /**
+     * The randomEvent method first determines each time the recursive function startSimulation is called, if a random event will occur 10% of the time
+     * If a random event occurs, the method will randomly choose an organ to affect and return the choice to the organ to adjust the health output
+     * */
+
+    public int randomEvent()
+    {
+        Random rand = new Random();
+        int randOrgHealthChange = (rand.nextInt(10) + 1);
+        int choiceRandOrgan = 0;
+
+//        System.out.println("Random Organ Health Change: " + randOrgHealthChange); //debugging
+
+        if(randOrgHealthChange == 1)
+        {
+            choiceRandOrgan = (rand.nextInt(3) + 1); //randomly choose which organ to affect 1 - 3
+        }
+
+        return choiceRandOrgan;
     }
 }

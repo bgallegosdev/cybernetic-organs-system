@@ -13,6 +13,7 @@ public class Lung extends CyberneticOrgan
     private int randMax = 1; //maximum value for random number generation
     private int randMin = -2; //minimum value for random number generation
     private int healthChange; //new health value
+    private int randomAdjust; //random adjustment value
 
     //No-Arg Constructor
     public Lung(){
@@ -33,10 +34,11 @@ public class Lung extends CyberneticOrgan
      * @param oH object of the Heart
      * */
 
-    public void lungUpdate(Heart oH){
+    public void lungUpdate(Heart oH, int randomChoice,int time){
         Random rand = new Random(); //Random object for random number generation on newOxygenLevel calculation
+        randomAdjust = (rand.nextInt(randMax - randMin + 1) + randMin);
        //Calculating the new oxygen level
-        newOxygenLevel = oxygenLevel + (oH.getPumpRate()/20) - 3 + (rand.nextInt(randMax - randMin + 1) + randMin);
+        newOxygenLevel = oxygenLevel + (oH.getPumpRate()/20) - 3 + (randomAdjust);
         //check if newOxygenLevel is within the min and max values
         if(newOxygenLevel < oxygenLevelMin){
             newOxygenLevel = oxygenLevelMin; //if newOxygenLevel is less than oxygenLevelMin, set newOxygenLevel to oxygenLevelMin
@@ -51,8 +53,28 @@ public class Lung extends CyberneticOrgan
         }
 
         //Updating the Health of the Lung
+//        System.out.println("oH.getPumpRate: " + oH.getPumpRate()); //debugging
         healthChange = (-1 + (oH.getPumpRate()/25) - 2);
+//        System.out.println("Lung healthChange: " + healthChange); //debugging
         health += healthChange;
+
+        //check if health is within the min and max values
+        if(health < healthMin){
+            health = healthMin;
+        }
+        else if(health > healthMax){
+            health = healthMax;
+        }
+
+        //initiate 10% random health change
+        if (randomChoice == 2){
+            int randHealthChange = 0; //random health change value
+            randHealthChange = (rand.nextInt(maxRan - minRan + 1) + minRan);
+//            System.out.println("randHealthChange: " + randHealthChange); //debugging
+            System.out.println("EVENT at Time " + time + ": Random health change for lung by " + randHealthChange + "%");
+            health += randHealthChange;
+        }
+
         //check if health is within the min and max values
         if(health < healthMin){
             health = healthMin;

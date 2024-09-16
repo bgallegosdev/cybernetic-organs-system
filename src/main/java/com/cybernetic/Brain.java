@@ -13,6 +13,7 @@ public class Brain extends CyberneticOrgan
     private int randMax = 1; //maximum value for random number generation
     private int randMin = -2; //minimum value for random number generation
     private int healthChange; //new health value
+    private int randomAdjust; //random adjustment value
 
     //No-Arg Constructor
     public Brain(){
@@ -32,10 +33,11 @@ public class Brain extends CyberneticOrgan
      * @param oL object of the Lung
      * */
 
-    public void brainUpdate(Lung oL){
-        Random random = new Random(); //Random object for random number generation on newControlEfficiency calculation
+    public void brainUpdate(Lung oL, int randomChoice,int time){
+        Random rand = new Random(); //Random object for random number generation on newControlEfficiency calculation
+        randomAdjust = (rand.nextInt(randMax - randMin + 1) + randMin);
         //Calculating the new control efficiency
-        newControlEfficiency = controlEfficiency + (oL.getOxygenLevel()/20) - 3 + (random.nextInt(randMax - randMin + 1) + randMin);
+        newControlEfficiency = controlEfficiency + (oL.getOxygenLevel()/20) - 3 + (randomAdjust);
         //check if newControlEfficiency is within the min and max values
         if(newControlEfficiency < controlMin){
             newControlEfficiency = controlMin; //if newControlEfficiency is less than controlMin, set newControlEfficiency to controlMin
@@ -50,8 +52,28 @@ public class Brain extends CyberneticOrgan
         }
 
         //Updating the Health of the Brain
+//        System.out.println("oH.getOxygenLevel: " + oL.getOxygenLevel()); //debugging
         healthChange = (-1 + (oL.getOxygenLevel()/25) - 2);
+//        System.out.println("Brain healthChange: " + healthChange); //debugging
         health += healthChange;
+
+        //check if health is within the min and max values
+        if(health < healthMin){
+            health = healthMin;
+        }
+        else if(health > healthMax){
+            health = healthMax;
+        }
+
+        //initiate 10% random health change
+        if (randomChoice == 3){
+            int randHealthChange = 0; //random health change value
+            randHealthChange = (rand.nextInt(maxRan - minRan + 1) + minRan);
+//            System.out.println("randHealthChange: " + randHealthChange); //debugging
+            System.out.println("EVENT at Time " + time + ": Random health change for brain by " + randHealthChange + "%");
+            health += randHealthChange;
+        }
+
         //check if health is within the min and max values
         if(health < healthMin){
             health = healthMin;
