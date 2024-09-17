@@ -85,4 +85,5 @@ public class Brain extends CyberneticOrgan
             health = healthMax;
         }
     }
+
 }

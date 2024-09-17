@@ -5,7 +5,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        //Create Organs for Recursion Simulation
+        //Create Organs Objects for Recursion Simulation
         Heart h = new Heart();
         Lung l = new Lung();
         Brain b = new Brain();

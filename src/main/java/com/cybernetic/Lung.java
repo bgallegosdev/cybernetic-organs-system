@@ -86,4 +86,5 @@ public class Lung extends CyberneticOrgan
             health = healthMax;
         }
     }
+
 }
