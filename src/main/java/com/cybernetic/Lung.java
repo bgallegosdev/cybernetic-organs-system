@@ -32,13 +32,16 @@ public class Lung extends CyberneticOrgan
     /**
      * The lungUpdate method updates the oxygen level and health of the lung based on the pump rate of the heart
      * @param oH object of the Heart
+     * @param randomChoice random choice of organ to affect
+     * @param time time of the event
      * */
-
     public void lungUpdate(Heart oH, int randomChoice,int time){
         Random rand = new Random(); //Random object for random number generation on newOxygenLevel calculation
         randomAdjust = (rand.nextInt(randMax - randMin + 1) + randMin);
+
        //Calculating the new oxygen level
-        newOxygenLevel = oxygenLevel + (oH.getPumpRate()/20) - 3 + (randomAdjust);
+        newOxygenLevel = (oxygenLevel + (oH.getPumpRate()/20) - 3 + (randomAdjust));
+
         //check if newOxygenLevel is within the min and max values
         if(newOxygenLevel < oxygenLevelMin){
             newOxygenLevel = oxygenLevelMin; //if newOxygenLevel is less than oxygenLevelMin, set newOxygenLevel to oxygenLevelMin

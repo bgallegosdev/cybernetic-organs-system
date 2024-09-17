@@ -31,13 +31,16 @@ public class Brain extends CyberneticOrgan
     /**
      * The brainUpdate method updates the control efficiency and health of the brain based on the oxygen level of the lung
      * @param oL object of the Lung
+     * @param randomChoice random choice of organ to affect
+     * @param time time of the event
      * */
-
     public void brainUpdate(Lung oL, int randomChoice,int time){
         Random rand = new Random(); //Random object for random number generation on newControlEfficiency calculation
         randomAdjust = (rand.nextInt(randMax - randMin + 1) + randMin);
+
         //Calculating the new control efficiency
-        newControlEfficiency = controlEfficiency + (oL.getOxygenLevel()/20) - 3 + (randomAdjust);
+        newControlEfficiency = (controlEfficiency + (oL.getOxygenLevel()/20) - 3 + (randomAdjust));
+
         //check if newControlEfficiency is within the min and max values
         if(newControlEfficiency < controlMin){
             newControlEfficiency = controlMin; //if newControlEfficiency is less than controlMin, set newControlEfficiency to controlMin
