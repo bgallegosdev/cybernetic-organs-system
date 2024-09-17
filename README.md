@@ -10,3 +10,5 @@ The OrganInventory class holds information on the available organs and how they 
 Added new branch to repository of 'assignment-1c' for the new content of adding classes, fields and methods
 
 Assignment 2 (09/10/2024): Additions with this assignment include refactoring of both the Patient class and the OrganInventoryClass to add arrays, ArrayLists, and sorting/searching methods for user use. The arrays and ArrayLists hold objects of the CyberneticOrgan class for details and lists. Edits made to CyberneticOrgan class were constructors, getters, and setters for use by other methods. Test input and output has been added to Main to show that all newly added methods are successful. 
+
+Assignment 3 (09/17/2024): This assignment we are working on recursive methods for solving a problem. We added 3 new subclasses of CyberneticOrgan class and will run a recursive method that will determine how the several organs and their properties affect one another health. The program runs 100 times recursively calling the organ processing. The program ends when the health of the organs reaches 0 in a failure, or 100 in a success.

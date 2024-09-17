@@ -32,10 +32,10 @@ public class Heart extends CyberneticOrgan
      * The heartUpdate method updates the pump rate and health of the heart based on the control efficiency of the brain and the oxygen level of the lung
      * @param oB object of the Brain
      * @param oL object of the Lung
+     * @param randomChoice random choice of organ to affect
+     * @param time time of the event
      * */
-
     public void heartUpdate(Brain oB, Lung oL,int randomChoice,int time){
-
         //Updating the Pump Rate of the Heart
         Random rand = new Random(); //Random object for random number generation on newPumpRate calculation
 //        System.out.println("Control Efficiency: " + oB.getControlEfficiency()); //debugging
@@ -43,6 +43,7 @@ public class Heart extends CyberneticOrgan
 //        System.out.println("Random Adjustment: " + randomAdjust); //debugging
         newPumpRate = (pumpRate + (oB.getControlEfficiency()/10) - 5 + (randomAdjust));
 //        System.out.println("newPumpRate: " + newPumpRate); //debugging
+
         //check if newPumpRate is within the min and max values
         if(newPumpRate < pumpRateMin){
             newPumpRate = pumpRateMin; //if newPumpRate is less than pumpRateMin, set newPumpRate to pumpRateMin
