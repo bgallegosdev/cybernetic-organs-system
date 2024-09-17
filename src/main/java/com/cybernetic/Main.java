@@ -15,5 +15,6 @@ public class Main
 
         //Call to the Recursive Method, startSimulation
         trifecta.startSimulation(100, h, l, b);
+
     }
 }
