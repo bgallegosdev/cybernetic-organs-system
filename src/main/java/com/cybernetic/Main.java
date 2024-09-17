@@ -1,9 +1,6 @@
 //Work done by Student Name: Benjamin Gallegos
 package com.cybernetic;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 public class Main
 {
     public static void main(String[] args)
