@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class OrganInventory {
+public class OrganInventory implements Comparator<Organ>{
 
     // Field of the OrganInventory class
     private ArrayList<CyberneticOrgan> inventoryList = new ArrayList<>(); //dynamic storing of inventory of organs
@@ -155,16 +155,78 @@ public class OrganInventory {
 
     }
 
+
+
     //for assignment 5
-    //ability to sort by multiple properties in order. name, model, compatibility using built-in sort
+    /**
+     *  The sortOrganByNameModelAndCompatibilityUsingBuiltInSort() method ability to sort by multiple properties in order. name, model, compatibility using built-in sort
+     */
     public List<Organ> sortOrganByNameModelAndCompatibilityUsingBuiltInSort() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        Collections.sort(inventory, builtInCompareName); //using collections.sort with comparator for name
+
+            System.out.println("By Name:"); //debugging for sorting by name
+            for(Organ x: inventory)
+            {
+                System.out.println(x.getName());
+            } //end debug
+
+        Collections.sort(inventory, builtInCompareModel); //using collections.sort with comparator for model
+
+            System.out.println("By Model:"); //debugging for sorting by Model
+            for(Organ x: inventory)
+            {
+                System.out.println(x.getModel());
+            } //end debug
+
+        Collections.sort(inventory, builtInCompareCompatibility); //using collections.sort with comparator for compatibility
+
+            System.out.println("By Compatibility:"); //debugging for sorting by Compatibility
+            for(Organ x: inventory)
+            {
+                System.out.println(x.getCompatibility());
+            } //end debug
+
+        return inventory; //return final sort
     }
 
-    //ability to sort by multiple properties in order. name, model, compatibility using quicksort
+    //compare method for comparator of the sortOrganByNameModelAndCompatibilityUsingBuildInSort() for name comparison
+    Comparator<Organ> builtInCompareName = new Comparator<Organ>()
+    {
+        @Override
+        public int compare(Organ o1, Organ o2) {
+            return o1.getName().compareTo(o2.getName());
+        }
+    };
+
+    //compare method for comparator of the sortOrganByNameModelAndCompatibilityUsingBuildInSort() for model comparison
+    Comparator<Organ> builtInCompareModel = new Comparator<Organ>()
+    {
+        @Override
+        public int compare(Organ o1, Organ o2) {
+            return o1.getModel().compareTo(o2.getModel());
+        }
+    };
+
+    //compare method for comparator of the sortOrganByNameModelAndCompatibilityUsingBuildInSort() for compatibility comparison
+    Comparator<Organ> builtInCompareCompatibility = new Comparator<Organ>()
+    {
+        @Override
+        public int compare(Organ o1, Organ o2) {
+            return o1.getCompatibility().compareTo(o2.getCompatibility());
+        }
+    };
+
+    @Override
+    public int compare(Organ o1, Organ o2) {
+        return 0;
+    }
+
+    /**
+     *  The quickSortOrganByNameModelAndCompatibility method needed to sort Organ list by using the QuickSort Method; ability to sort by multiple properties in order. name, model, compatibility using quicksort
+     * @param unmodifiableOrganList List of organ list
+     */
     public List<Organ> quickSortOrganByNameModelAndCompatibility(List<Organ> unmodifiableOrganList) {
         throw new UnsupportedOperationException("Not implemented yet");
     }
-
 
 }
