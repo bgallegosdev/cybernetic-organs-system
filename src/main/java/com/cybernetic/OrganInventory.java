@@ -226,7 +226,79 @@ public class OrganInventory implements Comparator<Organ>{
      * @param unmodifiableOrganList List of organ list
      */
     public List<Organ> quickSortOrganByNameModelAndCompatibility(List<Organ> unmodifiableOrganList) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        int low = 0; //beginning element of list
+        int high = (unmodifiableOrganList.size() - 1); //ending element of list
+
+        quickSort(unmodifiableOrganList, low, high);
+
+//        for(int x = 0; x < unmodifiableOrganList.size(); x++) //debugging
+//        {
+//            System.out.println(unmodifiableOrganList.get(x).getName());
+//        } //end debugging
+
+        return unmodifiableOrganList;
+    }
+
+    //actual quicksort method
+    public void quickSort(List<Organ> unmodifiableOrganList, int low, int high)
+    {
+        if(low < high)
+        {
+            int pivotIndex = partition(unmodifiableOrganList, low, high);
+            quickSort(unmodifiableOrganList, low, pivotIndex - 1);
+            quickSort(unmodifiableOrganList, pivotIndex + 1, high);
+        }
+    }
+
+    //pivot method for quickSortOrganByNameModuleAndCompatibility
+    //finding pivot in the middle element but moving it to the first as the end of the left sublist
+    public int partition(List<Organ> unmodifiableOrganList, int low, int high)
+    {
+        Organ pivotValue; //holding pivot object
+        int endOfLeftList; //last element in left sublist
+        int mid; //holding the mid-point subscript
+
+        //find mid in the middle element
+        mid = (low + high) / 2;
+
+        //swap mid subscript element with the first to start the end of the left sublist
+        swap(unmodifiableOrganList, low, mid);
+
+        //save pivot value for comparisons, after the swap to 1st element
+        pivotValue = unmodifiableOrganList.get(low);
+
+        //end of left sublist is first element
+        endOfLeftList = low;
+
+        //scan list and move any values "less" than Organ Name to left of sublist
+        for(int scan = low + 1; scan <= high; scan++)
+        {
+            int compareValue = unmodifiableOrganList.get(scan).getName().compareTo(pivotValue.getName());
+            if (compareValue <= 0)
+            {
+                endOfLeftList++;
+                swap(unmodifiableOrganList, endOfLeftList, scan);
+            }
+        }
+
+        //move pivot value to the end of the left sublist
+        swap(unmodifiableOrganList, low, endOfLeftList);
+
+        //return the subscript of the pivot value
+        return endOfLeftList;
+    }
+
+    //swap method for partition method
+    public void swap(List<Organ> unmodifiableOrganList, int i, int j)
+    {
+//        Organ temp; //creating a temporary organ, POSSIBLE ERROR
+//       temp = unmodifiableOrganList.get(i);
+//
+//       unmodifiableOrganList.set(i, unmodifiableOrganList.get(j));
+//       unmodifiableOrganList.set(j, temp);
+
+            Collections.swap(unmodifiableOrganList, i, j);
+
     }
 
 }

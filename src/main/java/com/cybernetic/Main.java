@@ -26,14 +26,14 @@ public class Main {
         List<Organ> sortedOrgans = inventory.sortOrganByNameModelAndCompatibilityUsingBuiltInSort();
         System.out.println("Time taken to sort using collection.sort: " + (System.nanoTime() - startTime) + "ns");
 
-//        System.out.println("Sorting inventory by name, model, and compatibility...Using QuickSort");
-//        startTime = System.nanoTime();
-//        sortedOrgans = inventory.quickSortOrganByNameModelAndCompatibility(inventory.getOrganList());
-//        System.out.println("Time taken to sort using quicksort: " + (System.nanoTime() - startTime) + "ns");
-//        //Then write the sorted inventory to the new csv file.
-//        writeOrganInventory(sortedOrgans);
+        System.out.println("Sorting inventory by name, model, and compatibility...Using QuickSort");
+        startTime = System.nanoTime();
+        sortedOrgans = inventory.quickSortOrganByNameModelAndCompatibility(inventory.getOrganList());
+        System.out.println("Time taken to sort using quicksort: " + (System.nanoTime() - startTime) + "ns");
+        //Then write the sorted inventory to the new csv file.
+        writeOrganInventory(sortedOrgans);
 
-//        System.out.println("Sorted inventory written to file.");
+        System.out.println("Sorted inventory written to file.");
 
 
     }
