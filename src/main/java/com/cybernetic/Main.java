@@ -28,7 +28,10 @@ public class Main {
 
         System.out.println("Sorting inventory by name, model, and compatibility...Using QuickSort");
         startTime = System.nanoTime();
-        sortedOrgans = inventory.quickSortOrganByNameModelAndCompatibility(inventory.getOrganList());
+        List<Organ> sortedOrgansTwo = new ArrayList<>(); //debugging; new list for unmodifiable list
+        sortedOrgansTwo.addAll(inventory.getOrganList()); //debugging; .getOrganList() is a getter method that returns the organList but is unmodifiable
+//        sortedOrgans = inventory.quickSortOrganByNameModelAndCompatibility(inventory.getOrganList()); //original
+        sortedOrgans = inventory.quickSortOrganByNameModelAndCompatibility(sortedOrgansTwo); //debugging
         System.out.println("Time taken to sort using quicksort: " + (System.nanoTime() - startTime) + "ns");
         //Then write the sorted inventory to the new csv file.
         writeOrganInventory(sortedOrgans);
