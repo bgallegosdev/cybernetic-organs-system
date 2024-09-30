@@ -164,27 +164,27 @@ public class OrganInventory implements Comparator<Organ>{
     public List<Organ> sortOrganByNameModelAndCompatibilityUsingBuiltInSort() {
         Collections.sort(inventory, builtInCompareName); //using collections.sort with comparator for name
 
-            System.out.println("By Name:"); //debugging for sorting by name
-            for(Organ x: inventory)
-            {
-                System.out.println(x.getName());
-            } //end debug
+//            System.out.println("By Name:"); //debugging for sorting by name
+//            for(Organ x: inventory)
+//            {
+//                System.out.println(x.getName());
+//            } //end debug
 
         Collections.sort(inventory, builtInCompareModel); //using collections.sort with comparator for model
 
-            System.out.println("By Model:"); //debugging for sorting by Model
-            for(Organ x: inventory)
-            {
-                System.out.println(x.getModel());
-            } //end debug
+//            System.out.println("By Model:"); //debugging for sorting by Model
+//            for(Organ x: inventory)
+//            {
+//                System.out.println(x.getModel());
+//            } //end debug
 
         Collections.sort(inventory, builtInCompareCompatibility); //using collections.sort with comparator for compatibility
 
-            System.out.println("By Compatibility:"); //debugging for sorting by Compatibility
-            for(Organ x: inventory)
-            {
-                System.out.println(x.getCompatibility());
-            } //end debug
+//            System.out.println("By Compatibility:"); //debugging for sorting by Compatibility
+//            for(Organ x: inventory)
+//            {
+//                System.out.println(x.getCompatibility());
+//            } //end debug
 
         return inventory; //return final sort
     }
@@ -270,42 +270,15 @@ public class OrganInventory implements Comparator<Organ>{
         //end of left sublist is first element
         endOfLeftList = low;
 
-        //scan list and move any values "less" than Organ Name to left of sublist
-        for(int scan = low + 1; scan <= high; scan++)
-        {
-            int compareValueName = unmodifiableOrganList.get(scan).getName().compareTo(pivotValue.getName()); //comparison by name
+        // scan list and move any values "less" than Organ Name, Model, and Compatibility to left of sublist
+        for (int scan = low + 1; scan <= high; scan++) {
+            int compareValueName = unmodifiableOrganList.get(scan).getName().compareTo(pivotValue.getName()); // comparison by name
+            int compareValueModel = unmodifiableOrganList.get(scan).getModel().compareTo(pivotValue.getModel()); // comparison by model
+            int compareValueCompatibility = unmodifiableOrganList.get(scan).getCompatibility().compareTo(pivotValue.getCompatibility()); // comparison by compatibility
 
-            //By Name
-            if (compareValueName <= 0)
-            {
+            // By Name, Model, and Compatibility
+            if (compareValueName < 0 || (compareValueName == 0 && compareValueModel < 0) || (compareValueName == 0 && compareValueModel == 0 && compareValueCompatibility <= 0)) {
                 endOfLeftList++;
-                swap(unmodifiableOrganList, endOfLeftList, scan);
-            }
-        }
-
-        //scan list and move any values "less" than Organ Name AND Model to left of sublist
-        for (int scan = low + 1; scan <= endOfLeftList; scan++) //note: changed high to endOfLeftList because we only want to sort the sorted elements of the left sublist now by model next
-        {
-            int compareValueName = unmodifiableOrganList.get(scan).getName().compareTo(pivotValue.getName()); //comparison by name
-            int compareValueModel = unmodifiableOrganList.get(scan).getModel().compareTo(pivotValue.getModel()); //comparison by model
-
-            //By Model
-            if (compareValueName <= 0 && compareValueModel <= 0)
-            {
-                swap(unmodifiableOrganList, endOfLeftList, scan);
-            }
-        }
-
-        //scan list and move any values "less" than Organ Name, Model, and Compatibility to left of sublist
-        for (int scan = low + 1; scan <= endOfLeftList; scan++) //note: changed high to endOfLeftList because we only want to sort the sorted elements of the left sublist now by compatibility next
-        {
-            int compareValueName = unmodifiableOrganList.get(scan).getName().compareTo(pivotValue.getName()); //comparison by name
-            int compareValueModel = unmodifiableOrganList.get(scan).getModel().compareTo(pivotValue.getModel()); //comparison by model
-            int compareValueCompatibility = unmodifiableOrganList.get(scan).getCompatibility().compareTo(pivotValue.getCompatibility()); //comparison by compatibility
-
-            //By Compatibility
-            if (compareValueName <= 0 && compareValueModel <= 0 && compareValueCompatibility <= 0)
-            {
                 swap(unmodifiableOrganList, endOfLeftList, scan);
             }
         }
