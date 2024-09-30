@@ -1,133 +1,74 @@
 //Work done by Student Name: Benjamin Gallegos
 package com.cybernetic;
 
-import java.util.Random;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Main
-{
-    public static void main(String[] args)
-    {
-        //Array used for analyzing six algorithms
-        //Calling on method to create array each iteration
-        int[] array = getArray();
+public class Main {
+    public static void main(String[] args) {
+        // Create an instance of OrganInventory and add organs
+        System.out.println("Adding organs to inventory...");
 
-        //Analyzing bubbleSort algorithm
-        analyzeBubbleSort(array);
-
-        //Analyzing insertionSort algorithm
-        analyzeInsertionSort(array);
-
-        //Analyzing selectionSort algorithm
-        analyzeSelectionSort(array);
-
-        //Analyzing mergeSort algorithm
-        analyzeMergeSort(array);
-
-        //Analyzing linearSearch algorithm
-        analyzeSequentialSearch(array);
-
-        //Analyzing binarySearch algorithm
-        analyzeBinarySearch(array);
-    }
-
-
-    //Method getArray for creating array for analyzing algorithms
-    private static int[] getArray() {
-        //Random Object for inserting int numbers into array for analyzing
-        Random random = new Random();
-
-        //variable for choosing size indicator for array
-        //changes per testing of algorithms
-        int arraySize = 100;
-
-        //Array used for analyzing six algorithms
-        int[] array = new int[arraySize];
-
-        //using a loop to fill in array based on size indicator
-        for(int i = 0; i < array.length; i++)
-        {
-            array[i] = random.nextInt(10);
+        // build the organ inventory from buildOrganInventory method then add the organs to the inventory
+        List<Organ> organs = buildOrganInventory();
+        OrganInventory inventory = new OrganInventory();
+        for (Organ organ : organs) {
+            inventory.addOrgan(organ);
         }
-        return array;
+
+        System.out.println("Sorting inventory by name, model, and compatibility...Using Collection.sort");
+        long startTime = System.nanoTime();
+        List<Organ> sortedOrgans = inventory.sortOrganByNameModelAndCompatibilityUsingBuiltInSort();
+        System.out.println("Time taken to sort using collection.sort: " + (System.nanoTime() - startTime) + "ns");
+
+        System.out.println("Sorting inventory by name, model, and compatibility...Using QuickSort");
+        startTime = System.nanoTime();
+        sortedOrgans = inventory.quickSortOrganByNameModelAndCompatibility(inventory.getOrganList());
+        System.out.println("Time taken to sort using quicksort: " + (System.nanoTime() - startTime) + "ns");
+        //Then write the sorted inventory to the new csv file.
+        writeOrganInventory(sortedOrgans);
+
+        System.out.println("Sorted inventory written to file.");
+
+
     }
 
-    //Method for analyzing the bubble sort algorithm
-    public static void analyzeBubbleSort(int[] array)
-    {
-        //Starting time for bubble sort
-        long bubbleStart = System.nanoTime();
-        Sorting.bubbleSort(array);  //Bubble sort method
-        //Ending time for bubble sort
-        long bubbleEnd = System.nanoTime();
-        //Time taken for bubble sort
-        long bubbleTime = bubbleEnd - bubbleStart;
-        System.out.println("Bubble Sort Time: " + bubbleTime + " nanoseconds");
+    private static void writeOrganInventory(List<Organ> sortedOrgans) {
+        //write the sorted inventory to a new csv file
+        String csvFile = "src/main/resources/sorted-organ-list.csv";
+        try (PrintWriter writer = new PrintWriter(csvFile)) {
+            writer.write("Model,Name,Functionality,Compatibility\n");
+            for (Organ organ : sortedOrgans) {
+                //write in this order name,model,functionality,compatibility
+                writer.write(organ.getName() + "," + organ.getModel() + "," + organ.getFunctionality() + "," + organ.getCompatibility() + "\n");
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-
-    //Method for analyzing the insertion sort algorithm
-    public static void analyzeInsertionSort(int[] array)
-    {
-        //Starting time for insertion sort
-        long insertionStart = System.nanoTime();
-        Sorting.insertionSort(array);  //Insertion sort method
-        //Ending time for insertion sort
-        long insertionEnd = System.nanoTime();
-        //Time taken for insertion sort
-        long insertionTime = insertionEnd - insertionStart;
-        System.out.println("Insertion Sort Time: " + insertionTime + " nanoseconds");
+    private static List<Organ> buildOrganInventory() {
+        //read the csv file
+        String csvFile = "src/main/resources/sample-organ-list.csv";
+        String line;
+        String cvsSplitBy = ",";
+        List<Organ> inventory = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            br.readLine(); // skip the header
+            while ((line = br.readLine()) != null) {
+                // use comma as separator
+                String[] organ= line.split(cvsSplitBy);
+                Organ newOrgan = new Organ( organ[1].trim(),organ[0].trim(), organ[2].trim(),organ[3].trim());
+                inventory.add(newOrgan);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return inventory;
     }
-
-    //Method for analyzing the selection sort algorithm
-    public static void analyzeSelectionSort(int[] array)
-    {
-        //Starting time for selection sort
-        long selectionStart = System.nanoTime();
-        Sorting.selectionSort(array);  //Selection sort method
-        //Ending time for selection sort
-        long selectionEnd = System.nanoTime();
-        //Time taken for selection sort
-        long selectionTime = selectionEnd - selectionStart;
-        System.out.println("Selection Sort Time: " + selectionTime + " nanoseconds");
-    }
-
-    //Method for analyzing the merge sort algorithm
-    public static void analyzeMergeSort(int[] array)
-    {
-        //Starting time for merge sort
-        long mergeStart = System.nanoTime();
-        Sorting.mergeSort(array);  //Merge sort method
-        //Ending time for merge sort
-        long mergeEnd = System.nanoTime();
-        //Time taken for merge sort
-        long mergeTime = mergeEnd - mergeStart;
-        System.out.println("Merge Sort Time: " + mergeTime + " nanoseconds");
-    }
-
-    //Method for analyzing the sequential search algorithm
-    public static void analyzeSequentialSearch(int[] array)
-    {
-        //Starting time for sequential search
-        long sequentialStart = System.nanoTime();
-        Searching.sequentialSearch(array, 11);  //Sequential search method
-        //Ending time for sequential search
-        long sequentialEnd = System.nanoTime();
-        //Time taken for sequential search
-        long sequentialTime = sequentialEnd - sequentialStart;
-        System.out.println("Sequential Search Time: " + sequentialTime + " nanoseconds");
-    }
-
-    //Method for analyzing the binary search algorithm
-    public static void analyzeBinarySearch(int[] array)
-    {
-        //Starting time for binary search
-        long binaryStart = System.nanoTime();
-        Searching.binarySearch(array, 11);  //Binary search method
-        //Ending time for binary search
-        long binaryEnd = System.nanoTime();
-        //Time taken for binary search
-        long binaryTime = binaryEnd - binaryStart;
-        System.out.println("Binary Search Time: " + binaryTime + " nanoseconds");
-    }
-
 }

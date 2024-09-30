@@ -5,27 +5,38 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class OrganInventory {
 
     // Field of the OrganInventory class
     private ArrayList<CyberneticOrgan> inventoryList = new ArrayList<>(); //dynamic storing of inventory of organs
+    private final List<Organ> inventory;
+
+    public OrganInventory() {
+        this.inventory = new ArrayList<>();
+    }
 
     /**
      *   The addOrgan method adds the CyberneticOrgan organ to the inventory field of this class.
      *   @param organ Organ listed from the CyberneticOrgan class
      */
-    public String addOrgan(CyberneticOrgan organ)
-    {
-        System.out.println("Adding organs to inventory..");
-        inventoryList.add(organ);
-        return "You've added " + organ.model + " organ to the inventory!\n";
+//    public String addOrgan(CyberneticOrgan organ)
+//    {
+//        System.out.println("Adding organs to inventory..");
+//        inventoryList.add(organ);
+//        return "You've added " + organ.model + " organ to the inventory!\n";
+//    }
+
+    //for assignment 5
+    public void addOrgan(Organ organ) {
+        inventory.add(organ);
     }
 
 
     /**
      *  The getOrgan method returns the organ needed for the model given
-     * @param model Part model compatibility
+     * @param model string output of model match
      */
 
     public String getOrgan(String model)
@@ -39,9 +50,14 @@ public class OrganInventory {
      * @return ArrayList<CyberneticOrgans> called inventoryList
      * */
 
-    public ArrayList<CyberneticOrgan> getOrganList()
-    {
-        return inventoryList;
+//    public ArrayList<CyberneticOrgan> getOrganList()
+//    {
+//        return inventoryList;
+//    }
+
+    //for assignment 5
+    public List<Organ> getOrganList() {
+        return Collections.unmodifiableList(inventory);
     }
 
     /**
@@ -138,4 +154,17 @@ public class OrganInventory {
         return inventoryList;
 
     }
+
+    //for assignment 5
+    //ability to sort by multiple properties in order. name, model, compatibility using built-in sort
+    public List<Organ> sortOrganByNameModelAndCompatibilityUsingBuiltInSort() {
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    //ability to sort by multiple properties in order. name, model, compatibility using quicksort
+    public List<Organ> quickSortOrganByNameModelAndCompatibility(List<Organ> unmodifiableOrganList) {
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+
 }
