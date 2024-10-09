@@ -58,7 +58,7 @@ public class OrganCompatibilityAnalyzer {
         //Checking O- compatibility; Universal Donor
         else if(donorType.equals("O-") && (recipientType.equals("O+") || recipientType.equals("B-") || recipientType.equals("A+")))
         {
-            compatibility = 80; //if the donor is O- and the recipient is O+, set compatibility to 80
+            compatibility = 80; //if the donor is O- and the recipient is O+ or B- or A+, set compatibility to 80
         }
         //Checking A+ compatibility
         else if(donorType.equals("A+") && (recipientType.equals("O+") || recipientType.equals("B-")))
@@ -73,7 +73,8 @@ public class OrganCompatibilityAnalyzer {
         //TODO: Calculate compatibility for each organ-patient pair based on compatibility calculation rules.
 
         int weightScore = 0; //set weight score to 0
-        int weightRatio = organWeight / (patientWeight * 1000);
+        double weightRatio = (organWeight / (patientWeight * 1000.0));
+        System.out.println(weightRatio + " for " + organWeight + " and " + patientWeight); //debugging
 
         if( weightRatio >= 0.8 && weightRatio <= 1.2)
         {
