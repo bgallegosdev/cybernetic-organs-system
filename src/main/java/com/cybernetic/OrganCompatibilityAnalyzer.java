@@ -56,30 +56,14 @@ public class OrganCompatibilityAnalyzer {
             compatibility = 100; //if the donor and recipient have the same blood type, set compatibility to 100
         }
         //Checking O- compatibility; Universal Donor
-        else if(donorType.equals("O-") && recipientType.equals("O+"))
+        else if(donorType.equals("O-") && (recipientType.equals("O+") || recipientType.equals("B-") || recipientType.equals("A+")))
         {
             compatibility = 80; //if the donor is O- and the recipient is O+, set compatibility to 80
         }
-        else if(donorType.equals("O-") && recipientType.equals("B-"))
-        {
-            compatibility = 80; //if the donor is O- and the recipient is B-, set compatibility to 80
-        }
-        else if(donorType.equals("O-") && recipientType.equals("A+"))
-        {
-            compatibility = 80; //if the donor is O- and the recipient is A+, set compatibility to 80
-        }
         //Checking A+ compatibility
-        else if(donorType.equals("A+") && recipientType.equals("O+"))
+        else if(donorType.equals("A+") && (recipientType.equals("O+") || recipientType.equals("B-")))
         {
-            compatibility = 0; //if the donor is A+ and the recipient is O+, set compatibility to 0
-        }
-        else if(donorType.equals("A+") && recipientType.equals("A+"))
-        {
-            compatibility = 80; //if the donor is A+ and the recipient is A+, set compatibility to 80
-        }
-        else if(donorType.equals("A+") && recipientType.equals("B-"))
-        {
-            compatibility = 0; //if the donor is A+ and the recipient is B-, set compatibility to 0
+            compatibility = 0; //if the donor is A+ and the recipient is O+ or B-, set compatibility to 0
         }
 
         return compatibility;
@@ -167,6 +151,19 @@ public class OrganCompatibilityAnalyzer {
         double[][] resultMatrix = new double[organs.size()][patients.size()];
 
         //TODO: calculate the weighted compatibility for each organ-patient pair
+        for(int i = 0; i < compatibilityMatrix.length; i++)
+        {
+            for(int j = 0; j < compatibilityMatrix[i].length; j+=3)
+            {
+                //calculate the weighted compatibility score
+                double weightedCompatibility = (weights[0] * compatibilityMatrix[i][j] +
+                        weights[1] * compatibilityMatrix[i][j + 1] +
+                        weights[2] * compatibilityMatrix[i][j + 2]) / 3.0;
+
+                //set the weighted compatibility score in the resultMatrix
+                resultMatrix[i][j / 3] = weightedCompatibility;
+            }
+        }
 
         return resultMatrix;
     }
@@ -177,9 +174,9 @@ public class OrganCompatibilityAnalyzer {
         //TODO: complete the displayMatrix method to display the initial compatibility matrix
 
         // Print patient IDs
-        System.out.print("     ");
+        System.out.print("  ");
         for (Patient patient : patients) {
-            System.out.print(patient.getId() + " ");
+            System.out.print(patient.getId() + " " + patient.getId() + " " + patient.getId() + " ");
         }
         System.out.println();
 
@@ -205,8 +202,24 @@ public class OrganCompatibilityAnalyzer {
 
     public void displayWeightedMatrix(double[][] matrix) {
         System.out.println("\nFinal Weighted Compatibility Matrix:");
-        System.out.print("     ");
+        System.out.print("  ");
         //TODO: complete the displayWeightedMatrix method to display the final weighted compatibility matrix
+
+        // Print patient IDs
+        for (Patient patient : patients) {
+            System.out.print(patient.getId() + " ");
+        }
+        System.out.println();
+
+        for(int i = 0; i < matrix.length; i++)
+        {
+            System.out.print(organs.get(i).getName() + " ");
+            for(int j = 0; j < matrix[i].length; j++)
+            {
+                System.out.printf("%.1f ", matrix[i][j]);
+            }
+            System.out.println();
+        }
     }
 
 }
