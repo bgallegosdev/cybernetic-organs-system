@@ -19,3 +19,4 @@ The two classes added are Sorting.java and Searching.java. Sorting.java class co
 Assignment 5 (10/01/2024): This assignment we are working on algorithms like the built in collection.sort methods and comparing it to the algorithm of QuickSort on time complexity. The overall observation is that, although complex, the custom QuickSort method beats the built-in java method. The code builds an organ list and then compares/sorts the list by Name, Model, and then Compatibility. The list then exports to an empty .csv file in resources folder "sorted-organ-list.csv". *Note: in order for program to write to "sorted-organ-list.csv", recommended to empty out the "sorted-organ-list.csv" for output.
 
 Assignment 6 (10/08/2024): This assignment we are working on the developing a compatibility matrix of the organs on inventory with the patient based on Blood Type, Weight, and HLA. The program will output a compatibility matrix of the organs against the prospective organ.
+
