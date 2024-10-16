@@ -1,7 +1,11 @@
 package com.cybernetic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class OrganCompatibilityAnalyzer {
     private List<Organ> organs;
@@ -20,39 +24,75 @@ public class OrganCompatibilityAnalyzer {
         patients.add(patient);
     }
 
-    public int[][] createCompatibilityMatrix() {
-        int[][] matrix = new int[organs.size()][patients.size() * 3]; // 3 factors: blood type, weight, HLA
+    public List<Organ> getCompatibleOrgans(Patient patient) {
+        //TODO: Implement this method
+        List<Organ> compatibleOrgans = new ArrayList<>(); //create list to hold compatible organs
 
-        //TODO:  Calculate compatibility for each organ-patient pair
-        for(int i = 0; i < organs.size(); i++)
+        Stream<Organ> organsCompatible; //create stream
+
+        //filter the organs list to only include organs that are compatible with the patient
+       organsCompatible = organs.stream().filter(organ -> isCompatible(organ, patient));
+
+        //collect the compatible organs into a list
+        compatibleOrgans = organsCompatible.collect(Collectors.toList());
+
+        return compatibleOrgans;
+    }
+
+    //helper method
+    public boolean isCompatible(Organ organ, Patient patient)
+    {
+        //flag
+        boolean compatScore = false;
+
+        OrganCompatibilityAnalyzer analyzer = new OrganCompatibilityAnalyzer(); //object to access calculation methods
+
+        //variables to hold compatibility values
+        int bloodValue;
+        int weightValue;
+
+        bloodValue = analyzer.calculateBloodTypeCompatibility(organ.getBloodType(), patient.getBloodType());
+        weightValue = analyzer.calculateWeightCompatibility(organ.getWeight(), patient.getWeight());
+
+        if(bloodValue > 0 && weightValue > 0)
         {
-            Organ organ = organs.get(i); //get the organ at index i
-            for(int j = 0; j < patients.size(); j++)
-            {
-                Patient patient = patients.get(j); //get the patient at index j
-
-                //calculate the compatibility for each factor
-                int bloodTypeCompatibility = calculateBloodTypeCompatibility(organ.getBloodType(), patient.getBloodType());
-//                    System.out.println("Organ: " + organ.getName() + " Patient: " + patient.getId());    //debugging
-//                    System.out.println("Blood Type Compatibility: " + bloodTypeCompatibility);    //debugging
-
-                int weightCompatibility = calculateWeightCompatibility(organ.getWeight(), patient.getWeight());
-//                    System.out.println("Weight Compatibility: " + weightCompatibility);    //debugging
-//                    System.out.println("Organ Weight: " + organ.getWeight() + " Patient Weight: " + patient.getWeight());    //debugging
-
-                int hlaCompatibility = calculateHlaCompatibility(organ.getHlaType(), patient.getHlaType());
-//                    System.out.println("HLA Compatibility: " + hlaCompatibility);    //debugging
-//                    System.out.println("Organ HLA: " + organ.getHlaType() + " Patient HLA: " + patient.getHlaType());    //debugging
-                    System.out.println();    //debugging
-
-                //set the compatibility scores in the matrix
-                matrix[i][j * 3] = bloodTypeCompatibility;
-                matrix[i][j * 3 + 1] = weightCompatibility;
-                matrix[i][j * 3 + 2] = hlaCompatibility;
-            }
+            compatScore = true;
         }
 
-        return matrix;
+        return compatScore;
+    }
+
+
+    public Map<Patient, List<Double>> calculateCompatibilityScores() {
+        //TODO: Implement this method
+
+        //create HashMap to store patients and compatibility scores of compatible organs
+        Map<Patient, List<Double>> patientMap = new HashMap<>();
+
+        //create outer stream for patients
+        Stream<Patient> patientStream;
+
+        //create list of Double Compatibility scores
+        List<Double> compatScoresList = new ArrayList<>();
+        compatScoresList.stream();
+
+        //create list of Compatible Organs
+        List<Organ> compatOrgans = new ArrayList<>();
+        Stream<Organ> organStream = compatOrgans.stream(); //inner stream of organs
+
+        //calculate the compatibility scores of patients to organs
+        patientStream = patients.stream().filter(patient -> getCompatibleOrgans(patient).size() > 0);
+//        compatOrgans = patientStream.collect(Collectors.toList());
+
+        return patientMap;
+    }
+
+    //helper method
+   public double calculateCompatibilityScore(Organ organ, Patient patient) {
+        double bloodTypeScore = calculateBloodTypeCompatibility(organ.getBloodType(), patient.getBloodType());
+        double weightScore = calculateWeightCompatibility(organ.getWeight(), patient.getWeight());
+        double hlaScore = calculateHlaCompatibility(organ.getHlaType(), patient.getHlaType());
+        return (bloodTypeScore * 0.4) + (weightScore * 0.3) + (hlaScore * 0.3);
     }
 
     private int calculateBloodTypeCompatibility(String donorType, String recipientType) {
@@ -158,82 +198,6 @@ public class OrganCompatibilityAnalyzer {
         }
 
         return compatibility;
-    }
-
-    public double[][] calculateWeightedCompatibility(double[] weights) {
-        int[][] compatibilityMatrix = createCompatibilityMatrix();
-        double[][] resultMatrix = new double[organs.size()][patients.size()];
-
-        //TODO: calculate the weighted compatibility for each organ-patient pair
-        for(int i = 0; i < compatibilityMatrix.length; i++)
-        {
-            for(int j = 0; j < compatibilityMatrix[i].length; j+=3)
-            {
-                //calculate the weighted compatibility score
-                double weightedCompatibility = (weights[0] * compatibilityMatrix[i][j] +
-                        weights[1] * compatibilityMatrix[i][j + 1] +
-                        weights[2] * compatibilityMatrix[i][j + 2]) / 3.0;
-
-                //set the weighted compatibility score in the resultMatrix
-                resultMatrix[i][j / 3] = weightedCompatibility;
-            }
-        }
-
-        return resultMatrix;
-    }
-
-
-    public void displayMatrix(int[][] matrix) {
-        System.out.println("Initial Compatibility Matrix:");
-        //TODO: complete the displayMatrix method to display the initial compatibility matrix
-
-        // Print patient IDs
-        System.out.print("  ");
-        for (Patient patient : patients) {
-            System.out.print(patient.getId() + " " + patient.getId() + " " + patient.getId() + " ");
-        }
-        System.out.println();
-
-        for(int i = 0; i < matrix.length; i++)
-        {
-            System.out.print(organs.get(i).getName() + " ");
-            for(int j = 0; j < matrix[i].length; j++)
-            {
-                System.out.print(matrix[i][j] + " ");
-            }
-            System.out.println();
-        }
-
-    }
-
-    public void displayWeightMatrix(double[] weights) {
-        System.out.println("\nWeight Matrix:");
-        for (double weight : weights) {
-            System.out.printf("%.2f  ", weight);
-        }
-        System.out.println();
-    }
-
-    public void displayWeightedMatrix(double[][] matrix) {
-        System.out.println("\nFinal Weighted Compatibility Matrix:");
-        System.out.print("  ");
-        //TODO: complete the displayWeightedMatrix method to display the final weighted compatibility matrix
-
-        // Print patient IDs
-        for (Patient patient : patients) {
-            System.out.print(patient.getId() + " ");
-        }
-        System.out.println();
-
-        for(int i = 0; i < matrix.length; i++)
-        {
-            System.out.print(organs.get(i).getName() + " ");
-            for(int j = 0; j < matrix[i].length; j++)
-            {
-                System.out.printf("%.1f ", matrix[i][j]);
-            }
-            System.out.println();
-        }
     }
 
 }

@@ -2,12 +2,14 @@
 package com.cybernetic;
 
 class Organ {
+    private String id;  // New property
     private String name;
     private String bloodType;
     private int weight;
     private String hlaType;
 
-    public Organ(String name, String bloodType, int weight, String hlaType) {
+    public Organ(String id, String name, String bloodType, int weight, String hlaType) {
+        this.id = id;
         this.name = name;
         this.bloodType = bloodType;
         this.weight = weight;
@@ -18,4 +20,5 @@ class Organ {
     public String getBloodType() { return bloodType; }
     public int getWeight() { return weight; }
     public String getHlaType() { return hlaType; }
+    public String getId() {return id; }
 }
