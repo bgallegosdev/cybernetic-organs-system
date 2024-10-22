@@ -26,7 +26,9 @@ public class OrganCompatibilityAnalyzer {
 
     public List<Organ> getCompatibleOrgans(Patient patient) {
         //filter the organs list to only include organs that are compatible with the patient
-       return organs.stream().filter(organ -> isCompatible(organ, patient)).collect(Collectors.toList());
+       return organs.stream()
+               .filter(organ -> isCompatible(organ, patient))
+               .collect(Collectors.toList());
     }
 
     //helper method
@@ -35,23 +37,18 @@ public class OrganCompatibilityAnalyzer {
         //flag
         boolean compatScore = false;
 
-        OrganCompatibilityAnalyzer analyzer = new OrganCompatibilityAnalyzer(); //object to access calculation methods
 
         //variables to hold compatibility values
         int bloodValue;
         int weightValue;
 
-        bloodValue = analyzer.calculateBloodTypeCompatibility(organ.getBloodType(), patient.getBloodType());
-        weightValue = analyzer.calculateWeightCompatibility(organ.getWeight(), patient.getWeight());
+        bloodValue = calculateBloodTypeCompatibility(organ.getBloodType(), patient.getBloodType());
+        weightValue = calculateWeightCompatibility(organ.getWeight(), patient.getWeight());
 
         if(bloodValue > 0 && weightValue > 0)
         {
             compatScore = true;
         }
-
-        //start debugging
-            System.out.println(compatScore);
-        //end debugging
 
         return compatScore;
     }
@@ -76,17 +73,17 @@ public class OrganCompatibilityAnalyzer {
             patientMap.put(patient, compatScoresList);
         });
 
-        //iterate through the patients list
-        for(Patient x: patients)
-        {
-            for(Organ y: organs)
-            {
-                compatScoreTemp = this.calculateCompatibilityScore(y, x);
-                compatScoresList.add(compatScoreTemp);
-            }
-
-            patientMap.put(x, compatScoresList);
-        }
+//        //iterate through the patients list
+//        for(Patient x: patients)
+//        {
+//            for(Organ y: organs)
+//            {
+//                compatScoreTemp = this.calculateCompatibilityScore(y, x);
+//                compatScoresList.add(compatScoreTemp);
+//            }
+//
+//            patientMap.put(x, compatScoresList);
+//        }
 
         return patientMap;
     }
