@@ -1,7 +1,7 @@
 //Class pulled from src/main/java/com/cybernetic/Organ.java of main branch; edits by Benjamin Gallegos
 package com.cybernetic;
 
-class Organ {
+public class Organ {
     private String id;  // New property
     private String name;
     private String bloodType;
@@ -21,4 +21,5 @@ class Organ {
     public int getWeight() { return weight; }
     public String getHlaType() { return hlaType; }
     public String getId() {return id; }
+
 }

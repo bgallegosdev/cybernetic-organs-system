@@ -25,18 +25,8 @@ public class OrganCompatibilityAnalyzer {
     }
 
     public List<Organ> getCompatibleOrgans(Patient patient) {
-        //TODO: Implement this method
-        List<Organ> compatibleOrgans = new ArrayList<>(); //create list to hold compatible organs
-
-        Stream<Organ> organsCompatible; //create stream
-
         //filter the organs list to only include organs that are compatible with the patient
-       organsCompatible = organs.stream().filter(organ -> isCompatible(organ, patient));
-
-        //collect the compatible organs into a list
-        compatibleOrgans = organsCompatible.collect(Collectors.toList());
-
-        return compatibleOrgans;
+       return organs.stream().filter(organ -> isCompatible(organ, patient)).collect(Collectors.toList());
     }
 
     //helper method
@@ -59,30 +49,44 @@ public class OrganCompatibilityAnalyzer {
             compatScore = true;
         }
 
+        //start debugging
+            System.out.println(compatScore);
+        //end debugging
+
         return compatScore;
     }
 
 
     public Map<Patient, List<Double>> calculateCompatibilityScores() {
-        //TODO: Implement this method
+        //create list of Double Compatibility scores
+        List<Double> compatScoresList = new ArrayList<>();
+        double compatScore = 0.0;
+        Double compatScoreTemp = compatScore;
 
         //create HashMap to store patients and compatibility scores of compatible organs
         Map<Patient, List<Double>> patientMap = new HashMap<>();
 
-        //create outer stream for patients
-        Stream<Patient> patientStream;
+        //iterate through each stream element and obtain the compatibility scores
+        //store scores in HashMap
+        patients.stream().forEach(patient -> {
+            organs.stream().forEach(organ -> {
+                double v = this.calculateCompatibilityScore(organ, patient);
+                compatScoresList.add(v);
+            });
+            patientMap.put(patient, compatScoresList);
+        });
 
-        //create list of Double Compatibility scores
-        List<Double> compatScoresList = new ArrayList<>();
-        compatScoresList.stream();
+        //iterate through the patients list
+        for(Patient x: patients)
+        {
+            for(Organ y: organs)
+            {
+                compatScoreTemp = this.calculateCompatibilityScore(y, x);
+                compatScoresList.add(compatScoreTemp);
+            }
 
-        //create list of Compatible Organs
-        List<Organ> compatOrgans = new ArrayList<>();
-        Stream<Organ> organStream = compatOrgans.stream(); //inner stream of organs
-
-        //calculate the compatibility scores of patients to organs
-        patientStream = patients.stream().filter(patient -> getCompatibleOrgans(patient).size() > 0);
-//        compatOrgans = patientStream.collect(Collectors.toList());
+            patientMap.put(x, compatScoresList);
+        }
 
         return patientMap;
     }
@@ -96,8 +100,6 @@ public class OrganCompatibilityAnalyzer {
     }
 
     private int calculateBloodTypeCompatibility(String donorType, String recipientType) {
-        //TODO: Calculate compatibility for each organ-patient pair based on compatibility calculation rules.
-
         int compatibility = 0; //set compatibility score to 0
 
         if(donorType.equals(recipientType))
@@ -123,8 +125,6 @@ public class OrganCompatibilityAnalyzer {
     }
 
     private int calculateWeightCompatibility(int organWeight, int patientWeight) {
-        //TODO: Calculate compatibility for each organ-patient pair based on compatibility calculation rules.
-
         int weightScore = 0; //set weight score to 0
         double weightRatio = (organWeight / (patientWeight * 1000.0));
 //        System.out.println(weightRatio + " for " + organWeight + " and " + patientWeight); //debugging
@@ -146,8 +146,6 @@ public class OrganCompatibilityAnalyzer {
     }
 
     private int calculateHlaCompatibility(String organHla, String patientHla) {
-        //TODO: Calculate compatibility for each organ-patient pair based on compatibility calculation rules.
-
         int compatibility = 0; //set compatibility score to 0
 
         //tokenize the organHla and patientHla strings
