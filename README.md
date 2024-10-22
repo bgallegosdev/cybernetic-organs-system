@@ -20,3 +20,5 @@ Assignment 5 (10/01/2024): This assignment we are working on algorithms like the
 
 Assignment 6 (10/08/2024): This assignment we are working on the developing a compatibility matrix of the organs on inventory with the patient based on Blood Type, Weight, and HLA. The program will output a compatibility matrix of the organs against the prospective organ.
 
+Assignment 7 (10/15/2024): This assignment we are learning how to use Lists, Sets, Maps, Stream API, and Generics all in one. This particular assignment has us use the calculations of compatibility from Assignment 6, except now we will use them on collections and use Stream API elements to optimize the processing of the data. The program outputs several different compatibility organs per patient.
+
