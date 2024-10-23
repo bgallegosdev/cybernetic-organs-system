@@ -4,9 +4,19 @@ package com.cybernetic;
 public class WaitingList {
     //implement a linked list
     private WaitingListNode head; //head of linked list
+    private WaitingListNode last; //last node of the linked list
+
+    /**
+     * Constructor
+     */
+    public WaitingList()
+    {
+        head = null;
+        last = null;
+    }
 
     /*
-     * Methods for adding to the linked list
+     * Methods for operating on linked lists
      */
 
     /**
@@ -16,7 +26,15 @@ public class WaitingList {
      */
     public void addPatient(Patient p, int priority)
     {
-        head = new WaitingListNode(p, priority);
+        if(this.isEmpty()) {
+            head = new WaitingListNode(p, priority);
+            last = head;
+        }
+        else
+        {
+            last.setNext(new WaitingListNode(p, priority));
+            last = last.getNext();
+        }
     }
 
     /**
@@ -24,7 +42,7 @@ public class WaitingList {
      */
     public Patient removeHighestPriority()
     {
-        if (head == null)
+        if (this.isEmpty())
         {
             return null;
         }
@@ -63,6 +81,47 @@ public class WaitingList {
     {
         //create reference to node to traverse through WaitingListNodes
         WaitingListNode ref = head;
+
+        //traverse through linked lists
+        while(ref != null)
+        {
+            //print the node list
+            System.out.println("Patient: " + ref.getPatient().getName() + ", Priority: " + ref.getPriority());
+            ref = ref.getNext();
+        }
     }
 
+    /**
+     * Method isEmpty will check in the Waitinglist is empty
+     */
+    public boolean isEmpty(){
+        return head == null; //if head is null, presumably the list is empty
+    }
+
+    /**
+     * Method getPosition will return the position of the Patient sent
+     *
+     */
+    public int getPosition(String patientId)
+    {
+        //create reference to node to traverse through WaitingListNodes
+        WaitingListNode ref = head;
+
+        //use a counter
+        int count = 0;
+
+        //traverse through linked lists
+        while(ref != null)
+        {
+            if(ref.getPatient().getId().equals(patientId)) //if id found break look
+            {
+                break;
+            }
+            else { //else, increase counter and move reference point
+                count++;
+                ref = ref.getNext();
+            }
+        }
+        return count;
+    }
 }

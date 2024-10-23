@@ -94,4 +94,13 @@ public class WaitingListNode {
     public void setPriority(int newPriority) {
         priority = newPriority;
     }
+
+    /**
+     * Method setNext will set the next node of the WaitingListNode
+     * @param newNode new node in the list to be added
+     */
+    public void setNext(WaitingListNode newNode)
+    {
+        next = newNode;
+    }
 }
