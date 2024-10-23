@@ -1,6 +1,7 @@
 package com.cybernetic;
 
 public class WaitingListNode {
+
     //fields of the Node Waiting List
     private Patient patient; //the patient in the waiting list
     private int priority; //priority of the patient (high number means high priority)
@@ -30,7 +31,7 @@ public class WaitingListNode {
     {
         patient = p;
         priority = rank;
-        next = this.next;
+        next = this.getNext();
     }
 
     /**
@@ -42,7 +43,7 @@ public class WaitingListNode {
     {
         patient = p;
         priority = 0;
-        next = this.next;
+        next = this.getNext();
     }
 
     /**
@@ -54,5 +55,43 @@ public class WaitingListNode {
         patient = null;
         priority = 0;
         next = null;
+    }
+
+
+    /*
+        * Getters and Setters
+     */
+
+    /**
+     * Method getPatient to get the patient in the node
+     * @return the patient in the node
+     */
+    public Patient getPatient()
+    {
+        return patient;
+    }
+
+    /**
+     * Method getNext to get the next node in the list
+     * @return the next node in the list
+     */
+    public WaitingListNode getNext() {
+        return this.next;
+    }
+
+    /**
+     * Method getPriority to get the priority of the patient in the node
+     * @return the priority of the patient in the node
+     */
+    public int getPriority(){
+        return this.priority;
+    }
+
+    /**
+     * Method setPriority will set the new priority of the WaitingListNode
+     * @param newPriority new rank in priority list
+     */
+    public void setPriority(int newPriority) {
+        priority = newPriority;
     }
 }
