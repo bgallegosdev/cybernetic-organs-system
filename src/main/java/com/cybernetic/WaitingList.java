@@ -100,7 +100,7 @@ public class WaitingList {
 
     /**
      * Method getPosition will return the position of the Patient sent
-     *
+     * @param patientId the Patient's id to be returned position of
      */
     public int getPosition(String patientId)
     {
@@ -123,5 +123,36 @@ public class WaitingList {
             }
         }
         return count;
+    }
+
+    /**
+     * Method removePatient removes a Patient from the WaitingListNode
+     */
+    public void removePatient(String patientId)
+    {
+        //create reference to node to traverse through WaitingListNodes
+        WaitingListNode ref = head;
+
+        //create reference to hold node successor
+        WaitingListNode refNext = ref.getNext();
+
+        //first check if the node list is empty
+        if(this.isEmpty())
+            System.out.println("This is list is empty, no Patients to remove");
+
+        //traverse through linked lists, if empty skip
+        while(ref != null && !ref.getPatient().getId().equals(patientId))
+        {
+
+        }
+
+        //if found, remove it and move the successor
+        if(ref.getPatient().getId().equals(patientId))
+        {
+
+        }
+        else {
+            ref = ref.getNext();
+        }
     }
 }
