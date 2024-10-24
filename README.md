@@ -22,3 +22,5 @@ Assignment 6 (10/08/2024): This assignment we are working on the developing a co
 
 Assignment 7 (10/15/2024): This assignment we are learning how to use Lists, Sets, Maps, Stream API, and Generics all in one. This particular assignment has us use the calculations of compatibility from Assignment 6, except now we will use them on collections and use Stream API elements to optimize the processing of the data. The program outputs several different compatibility organs per patient. The new calculations can be seen taking into account of collections.
 
+Assignment 8 (10/22/2024): This assignment we are utilizing our knowledge about Linked Lists and nodes to generate a priority list for certain organs and patients. There are several methods that operate on the linked list WaitingList and the nodes of the WaitingListNode. These are custom methods that perform operations like add, remove, remove highest priority, and more on the nodes/waiting list. 
+

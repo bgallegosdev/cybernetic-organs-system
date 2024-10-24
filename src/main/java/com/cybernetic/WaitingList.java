@@ -1,6 +1,5 @@
 package com.cybernetic;
 
-
 public class WaitingList {
     //implement a linked list
     private WaitingListNode head; //head of linked list
@@ -79,6 +78,9 @@ public class WaitingList {
      */
     public void displayWaitingList()
     {
+        //sort the list
+        head = sortList(head);
+
         //create reference to node to traverse through WaitingListNodes
         WaitingListNode ref = head;
 
@@ -133,26 +135,83 @@ public class WaitingList {
         //create reference to node to traverse through WaitingListNodes
         WaitingListNode ref = head;
 
-        //create reference to hold node successor
-        WaitingListNode refNext = ref.getNext();
-
-        //first check if the node list is empty
-        if(this.isEmpty())
+        //check if the node list is empty
+        if(this.isEmpty()) {
             System.out.println("This is list is empty, no Patients to remove");
-
-        //traverse through linked lists, if empty skip
-        while(ref != null && !ref.getPatient().getId().equals(patientId))
-        {
-
+            return;
         }
 
-        //if found, remove it and move the successor
-        if(ref.getPatient().getId().equals(patientId))
-        {
-
+        //check if the node is located on the head
+        if (head.getPatient().getId().equals(patientId)) {
+            head = head.getNext(); //if located in head, move the head variable
+            if(head == null) {
+                last = null; //List is empty
+            }
+            return;
         }
-        else {
-            ref = ref.getNext();
+
+        // Traverse the list to find the patient
+        WaitingListNode current = head;
+        WaitingListNode previous = null;
+
+        while (current != null && !current.getPatient().getId().equals(patientId)) {
+            previous = current;
+            current = current.getNext();
+        }
+
+        // If the patient was found
+        if (current != null) {
+            previous.setNext(current.getNext());
+            if (current == last) {
+                last = previous; // Update last if the last node was removed
+            }
+        } else {
+            System.out.println("Patient not found in the list");
         }
     }
+
+    //Credit Below: Using Co-Pilot to Generate a Sorting Algorithm for the WaitingList
+    /**
+     * Method sortList will sort the list in order of highest priority to lowest
+     * @param head the head of the list
+     * @return the head of the sorted list
+     */
+    public WaitingListNode sortList(WaitingListNode head) {
+        //check if the list is empty
+        if (head == null || head.getNext() == null) {
+            return head;
+        }
+
+        //initialize the sorted list
+        WaitingListNode sortedList = null;
+
+        //create reference to node to traverse through WaitingListNodes
+        WaitingListNode current = head;
+
+        //traverse through linked lists
+        while (current != null) {
+            //store the next node
+            WaitingListNode next = current.getNext();
+
+            //check if the current node is greater than the head
+            if (sortedList == null || current.getPriority() > sortedList.getPriority()) {
+                //insert the current node at the head
+                current.setNext(sortedList);
+                sortedList = current;
+            } else {
+                //traverse through the sorted list
+                WaitingListNode ref = sortedList;
+                while (ref.getNext() != null && ref.getNext().getPriority() > current.getPriority()) {
+                    ref = ref.getNext();
+                }
+                //insert the current node
+                current.setNext(ref.getNext());
+                ref.setNext(current);
+            }
+            //move to the next node
+            current = next;
+        }
+        return sortedList;
+    }
+
 }

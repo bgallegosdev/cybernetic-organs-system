@@ -11,19 +11,37 @@ public class OrganCompatibilityAnalyzer {
     private List<Organ> organs;
     private List<Patient> patients;
 
+    /**
+     * Constructor
+     * Initialize the organs and patients lists
+     */
+
     public OrganCompatibilityAnalyzer() {
         organs = new ArrayList<>();
         patients = new ArrayList<>();
     }
 
+    /**
+     * Method to add an organ to the list of organs
+     * @param organ the organ to be added
+     */
     public void addOrgan(Organ organ) {
         organs.add(organ);
     }
 
+    /**
+     * Method to add a patient to the list of patients
+     * @param patient the patient to be added
+     */
     public void addPatient(Patient patient) {
         patients.add(patient);
     }
 
+    /**
+     * Method to find a compatible organs for compatible patients
+     * @param patient the patient to be matched
+     * @return the patient that is compatible with the organ
+     */
     public List<Organ> getCompatibleOrgans(Patient patient) {
         //filter the organs list to only include organs that are compatible with the patient
        return organs.stream()
@@ -31,7 +49,11 @@ public class OrganCompatibilityAnalyzer {
                .collect(Collectors.toList());
     }
 
-    //helper method
+    /**
+     * Method to find a compatible patient for a given organ
+     * @param organ the organ to be matched
+     * @return the patient that is compatible with the organ
+     */
     public boolean isCompatible(Organ organ, Patient patient)
     {
         //flag
@@ -53,7 +75,10 @@ public class OrganCompatibilityAnalyzer {
         return compatScore;
     }
 
-
+    /**
+     * Method to calculate compatibility scores for all patients
+     * @return a map of patients and their compatibility scores
+     */
     public Map<Patient, List<Double>> calculateCompatibilityScores() {
         //create list of Double Compatibility scores
         List<Double> compatScoresList = new ArrayList<>();
@@ -73,22 +98,15 @@ public class OrganCompatibilityAnalyzer {
             patientMap.put(patient, compatScoresList);
         });
 
-//        //iterate through the patients list
-//        for(Patient x: patients)
-//        {
-//            for(Organ y: organs)
-//            {
-//                compatScoreTemp = this.calculateCompatibilityScore(y, x);
-//                compatScoresList.add(compatScoreTemp);
-//            }
-//
-//            patientMap.put(x, compatScoresList);
-//        }
-
         return patientMap;
     }
 
-    //helper method
+    /**
+     * Method to calculate compatibility score for a given organ and patient
+     * @param organ the organ to be matched
+     * @param patient the patient to be matched
+     * @return the compatibility score
+     */
    public double calculateCompatibilityScore(Organ organ, Patient patient) {
         double bloodTypeScore = calculateBloodTypeCompatibility(organ.getBloodType(), patient.getBloodType());
         double weightScore = calculateWeightCompatibility(organ.getWeight(), patient.getWeight());
@@ -96,6 +114,12 @@ public class OrganCompatibilityAnalyzer {
         return (bloodTypeScore * 0.4) + (weightScore * 0.3) + (hlaScore * 0.3);
     }
 
+    /**
+     * Method to calculate blood type compatibility
+     * @param donorType the blood type of the donor
+     * @param recipientType the blood type of the recipient
+     * @return the compatibility score
+     */
     private int calculateBloodTypeCompatibility(String donorType, String recipientType) {
         int compatibility = 0; //set compatibility score to 0
 
@@ -115,16 +139,22 @@ public class OrganCompatibilityAnalyzer {
         }
 
         //debugging
-//        System.out.println("Donor: " + donorType + " Recipient: " + recipientType + " Compatibility: " + compatibility);
+        // System.out.println("Donor: " + donorType + " Recipient: " + recipientType + " Compatibility: " + compatibility);
         //end debugging
 
         return compatibility;
     }
 
+    /**
+     * Method to calculate weight compatibility
+     * @param organWeight the weight of the organ
+     * @param patientWeight the weight of the patient
+     * @return the compatibility score
+     */
     private int calculateWeightCompatibility(int organWeight, int patientWeight) {
         int weightScore = 0; //set weight score to 0
         double weightRatio = (organWeight / (patientWeight * 1000.0));
-//        System.out.println(weightRatio + " for " + organWeight + " and " + patientWeight); //debugging
+        //ystem.out.println(weightRatio + " for " + organWeight + " and " + patientWeight); //debugging
 
         if( weightRatio >= 0.8 && weightRatio <= 1.2)
         {
@@ -142,6 +172,12 @@ public class OrganCompatibilityAnalyzer {
         return weightScore;
     }
 
+    /**
+     * Method to calculate HLA compatibility
+     * @param organHla the HLA type of the organ
+     * @param patientHla the HLA type of the patient
+     * @return the compatibility score
+     */
     private int calculateHlaCompatibility(String organHla, String patientHla) {
         int compatibility = 0; //set compatibility score to 0
 
@@ -193,6 +229,15 @@ public class OrganCompatibilityAnalyzer {
         }
 
         return compatibility;
+    }
+
+    /**
+     * Method to find a compatible patient for an organ
+     * Finding the highest priority patient in the waiting list for a given organ
+     */
+    public void findCompatiblePatient(CyberneticOrgan organ, WaitingList waitingList)
+    {
+
     }
 
 }
