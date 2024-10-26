@@ -237,6 +237,10 @@ public class OrganCompatibilityAnalyzer {
      */
     public void findCompatiblePatient(CyberneticOrgan organ, WaitingList waitingList)
     {
+        //Create a list of compatible patients by using the isCompatible method
+
+        //find the highest priority in that list
+
 
     }
 

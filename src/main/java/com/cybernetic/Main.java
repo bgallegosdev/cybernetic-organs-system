@@ -47,15 +47,15 @@ public class Main {
         // Display updated waiting list
         System.out.println("Updated Waiting List:");
         waitingList.displayWaitingList();
-//
-//        // Create an organ
-//        Organ cyberHeart = new Organ("O001", "CyberHeart-X1", "A+", 350, "HLA-A");
-//
-//        // Create an OrganCompatibilityAnalyzer
-//        OrganCompatibilityAnalyzer analyzer = new OrganCompatibilityAnalyzer();
-//
-//        // Match organ to waiting list
-//        System.out.println("\nMatching "+cyberHeart.getName()+" to Waiting List:");
+
+        // Create an organ
+        Organ cyberHeart = new Organ("O001", "CyberHeart-X1", "A+", 350, "HLA-A");
+
+        // Create an OrganCompatibilityAnalyzer
+        OrganCompatibilityAnalyzer analyzer = new OrganCompatibilityAnalyzer();
+
+        // Match organ to waiting list
+        System.out.println("\nMatching "+cyberHeart.getName()+" to Waiting List:");
 //        Patient matchedPatient = analyzer.findCompatiblePatient(cyberHeart, waitingList);
 //        if (matchedPatient != null) {
 //            int priority = waitingList.getPosition(matchedPatient.getId());
