@@ -16,9 +16,23 @@ public class Patient {
         this.hlaType = hlaType;
     }
 
+    private PatientHistory history;
+
     public String getId() { return id; }
     public String getBloodType() { return bloodType; }
     public int getWeight() { return weight; }
     public String getHlaType() { return hlaType; }
     public String getName() { return name; }
+
+    public void setHistory(PatientHistory history) {
+        this.history = history;
+    }
+
+    public void addMedicalEvent(String medicalEvent) {
+        this.history.addMedicalEvent(medicalEvent);
+    }
+
+    public String removeMostRecentEvent() {
+        return this.history.removeMostRecentEvent();
+    }
 }
