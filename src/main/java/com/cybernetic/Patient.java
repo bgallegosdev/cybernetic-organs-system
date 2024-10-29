@@ -28,6 +28,10 @@ public class Patient {
         this.history = history;
     }
 
+    public PatientHistory getHistory(){
+        return this.history;
+    }
+
     public void addMedicalEvent(String medicalEvent) {
         this.history.addMedicalEvent(medicalEvent);
     }
