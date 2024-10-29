@@ -1,5 +1,8 @@
 package com.cybernetic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WaitingList {
     //implement a linked list
     private WaitingListNode head; //head of linked list
@@ -213,5 +216,36 @@ public class WaitingList {
         }
         return sortedList;
     }
+
+    /**
+     * Method get will return the Patient
+     * @param id the id of the Patient
+     * @return the Patient
+     */
+    public Patient getPatient(String id) {
+        WaitingListNode ref = head;
+        while (ref != null) {
+            if (ref.getPatient().getId().equals(id)) {
+                return ref.getPatient();
+            }
+            ref = ref.getNext();
+        }
+        return null;
+    }
+
+    /**
+     * Method getPaitent will return the Patient for each node
+     * @return the Patient
+     */
+    public List<Patient> getWaitingList() {
+        List<Patient> patients = new ArrayList<>();
+        WaitingListNode ref = head;
+        while (ref != null) {
+            patients.add(ref.getPatient());
+            ref = ref.getNext();
+        }
+        return patients;
+    }
+
 
 }

@@ -56,19 +56,19 @@ public class Main {
 
         // Match organ to waiting list
         System.out.println("\nMatching "+cyberHeart.getName()+" to Waiting List:");
-//        Patient matchedPatient = analyzer.findCompatiblePatient(cyberHeart, waitingList);
-//        if (matchedPatient != null) {
-//            int priority = waitingList.getPosition(matchedPatient.getId());
-//            System.out.println("Compatible patient found: " + matchedPatient.getName() +
-//                    " (Priority: " + priority + ")");
-//        } else {
-//            System.out.println("No compatible patient found in the waiting list.");
-//        }
-//
-//        //after matchingPatient is found, remove the patient from the waiting list
-//        System.out.println("\nRemoving matched patient from the waiting list...");
-//        waitingList.removePatient(matchedPatient.getId());
-//        System.out.println("Updated Waiting List:");
-//        waitingList.displayWaitingList();
+        Patient matchedPatient = analyzer.findCompatiblePatient(cyberHeart, waitingList);
+        if (matchedPatient != null) {
+            int priority = waitingList.getPosition(matchedPatient.getId());
+            System.out.println("Compatible patient found: " + matchedPatient.getName() +
+                    " (Priority: " + priority + ")");
+        } else {
+            System.out.println("No compatible patient found in the waiting list.");
+        }
+
+        //after matchingPatient is found, remove the patient from the waiting list
+        System.out.println("\nRemoving matched patient from the waiting list...");
+        waitingList.removePatient(matchedPatient.getId());
+        System.out.println("Updated Waiting List:");
+        waitingList.displayWaitingList();
     }
 }

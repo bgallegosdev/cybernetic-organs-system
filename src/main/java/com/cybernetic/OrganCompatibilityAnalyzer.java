@@ -56,6 +56,10 @@ public class OrganCompatibilityAnalyzer {
      */
     public boolean isCompatible(Organ organ, Patient patient)
     {
+        //debugging
+//            System.out.println("Organ: " + organ.getName() + " Patient: " + patient.getName());
+        //end debugging
+
         //flag
         boolean compatScore = false;
 
@@ -66,6 +70,12 @@ public class OrganCompatibilityAnalyzer {
 
         bloodValue = calculateBloodTypeCompatibility(organ.getBloodType(), patient.getBloodType());
         weightValue = calculateWeightCompatibility(organ.getWeight(), patient.getWeight());
+
+        //debugging
+//            System.out.println("Organ: " + organ.getName() + " Patient: " + patient.getName());
+//            System.out.println("Organ Blood Type: " + organ.getBloodType() + " Patient Blood Type: " + patient.getBloodType());
+//            System.out.println("Blood Value: " + bloodValue + " Weight Value: " + weightValue);
+        //end debugging
 
         if(bloodValue > 0 && weightValue > 0)
         {
@@ -153,8 +163,8 @@ public class OrganCompatibilityAnalyzer {
      */
     private int calculateWeightCompatibility(int organWeight, int patientWeight) {
         int weightScore = 0; //set weight score to 0
-        double weightRatio = (organWeight / (patientWeight * 1000.0));
-        //ystem.out.println(weightRatio + " for " + organWeight + " and " + patientWeight); //debugging
+        double weightRatio = (organWeight / (patientWeight * 5.0)); //error in calculation of weight ratio, original code had 1000.0 too high to calculate a relatable ratio for weight comparison, all values would equal 0 --> changed to 5 for more realistic weight ratio
+        //System.out.println(weightRatio + " for " + organWeight + " and " + patientWeight); //debugging
 
         if( weightRatio >= 0.8 && weightRatio <= 1.2)
         {
@@ -235,12 +245,29 @@ public class OrganCompatibilityAnalyzer {
      * Method to find a compatible patient for an organ
      * Finding the highest priority patient in the waiting list for a given organ
      */
-    public void findCompatiblePatient(CyberneticOrgan organ, WaitingList waitingList)
+    public Patient findCompatiblePatient(Organ organ, WaitingList waitingList)
     {
-        //Create a list of compatible patients by using the isCompatible method
+        //debugging
+//        System.out.println("Organ: " + organ.getName());
+//        waitingList.displayWaitingList();
+        //end debugging
+
+
+        //Create a list of compatible patients by using the waitingList and the isCompatible method
+        List<Patient> compatiblePatients = waitingList.getWaitingList().stream()
+                .filter(patient -> isCompatible(organ, waitingList.getPatient(patient.getId())))
+                .collect(Collectors.toList());
+
+        //debugging
+//        System.out.println("Compatible Patients: " + compatiblePatients);
+        //end debugging
 
         //find the highest priority in that list
+        Patient highestPriorityPatient = compatiblePatients.stream()
+                .max((p1, p2) -> Integer.compare(waitingList.getPosition(p1.getId()), waitingList.getPosition(p2.getId())))
+                .orElse(null);
 
+        return highestPriorityPatient;
 
     }
 
