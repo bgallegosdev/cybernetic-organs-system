@@ -24,3 +24,5 @@ Assignment 7 (10/15/2024): This assignment we are learning how to use Lists, Set
 
 Assignment 8 (10/22/2024): This assignment we are utilizing our knowledge about Linked Lists and nodes to generate a priority list for certain organs and patients. There are several methods that operate on the linked list WaitingList and the nodes of the WaitingListNode. These are custom methods that perform operations like add, remove, remove highest priority, and more on the nodes/waiting list. 
 
+Assignment 9 (10/29/2024): This assignment we used Stacks and Queues to create Patient Waiting Lists and Patient History. We utilized the Java Collections to frame the Queue inside of a Linked List and utilized the in house methods for stacks and queues. The program demonstrates the basic use of these methods through adding history events to specific patients and removing them. Output can also be seen of a queue of priority patients.
+

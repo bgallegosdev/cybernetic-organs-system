@@ -40,4 +40,5 @@ public class PatientHistory {
     public boolean isEmpty() {
         return medicalHistory.isEmpty();
     }
+
 }

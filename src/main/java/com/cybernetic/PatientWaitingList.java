@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 public class PatientWaitingList {
     private Queue<Patient> waitingList = new LinkedList<>();
+    private int count = 0; // count of patients in the waiting list
 
     /**
      * Add a new patient to the end of the waiting list.
@@ -15,6 +16,7 @@ public class PatientWaitingList {
      */
     public void addPatient(Patient patient) {
         waitingList.add(patient);
+        count++;
     }
 
     /**
@@ -22,7 +24,8 @@ public class PatientWaitingList {
      * @return The next patient in the waiting list.
      */
     public Patient removeNextPatient() {
-       return waitingList.remove();
+       count--;
+        return waitingList.remove();
     }
 
     /**
@@ -49,6 +52,6 @@ public class PatientWaitingList {
         return waitingList.stream()
                 .filter(Objects::nonNull)
                 .map(Patient::getName)
-                .collect(Collectors.joining("<-----"));
+                .collect(Collectors.joining(" <-----"));
     }
 }
