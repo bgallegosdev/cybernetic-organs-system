@@ -26,3 +26,6 @@ Assignment 8 (10/22/2024): This assignment we are utilizing our knowledge about 
 
 Assignment 9 (10/29/2024): This assignment we used Stacks and Queues to create Patient Waiting Lists and Patient History. We utilized the Java Collections to frame the Queue inside of a Linked List and utilized the in house methods for stacks and queues. The program demonstrates the basic use of these methods through adding history events to specific patients and removing them. Output can also be seen of a queue of priority patients.
 
+
+Assignment 10 (11/05/2024): This assignment we are optimizing our code for compatibility searches with patients and organs using a binary search tree and its methods.
+

@@ -1,54 +1,29 @@
 //Work done by Student Name: Benjamin Gallegos
 package com.cybernetic;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Patient {
     private String id;
     private String name;
-    private String bloodType;
-    private int weight;
-    private String hlaType;
+    private Map<String, Double> measurements;  // Stores medical measurements
 
-    // Constructor
-    public Patient(String id, String name,String bloodType, int weight, String hlaType) {
+    public Patient(String id, String name) {
         this.id = id;
         this.name = name;
-        this.bloodType = bloodType;
-        this.weight = weight;
-        this.hlaType = hlaType;
+        this.measurements = new HashMap<>();
     }
 
-    // Create a new PatientHistory object for each patient
-    private PatientHistory history = new PatientHistory();
-
-    // Getters
-    public String getId() { return id; }
-    public String getBloodType() { return bloodType; }
-    public int getWeight() { return weight; }
-    public String getHlaType() { return hlaType; }
-    public String getName() { return name; }
-
-    public PatientHistory getHistory(){
-        return history;
+    public void addMeasurement(String type, double value) {
+        measurements.put(type, value);
     }
 
-    // Setters
-    public void setHistory(PatientHistory history) {
-        this.history = history;
+    public Double getMeasurement(String type) {
+        return measurements.get(type);
     }
 
-    /**
-     * Add a new medical event to the patient's history.
-     * @param medicalEvent the medical event to be added.
-     */
-    public void addMedicalEvent(String medicalEvent) {
-        this.history.addMedicalEvent(medicalEvent);
-    }
-
-    /**
-     * View the most recent medical event without removing it from the stack.
-     * @return The most recent medical event.
-     */
-    public String removeMostRecentEvent() {
-        return this.history.removeMostRecentEvent();
+    public Map<String, Double> getAllMeasurements() {
+        return new HashMap<>(measurements);
     }
 }
