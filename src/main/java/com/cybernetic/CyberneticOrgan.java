@@ -1,36 +1,21 @@
 //Work done by Student Name: Benjamin Gallegos
 package com.cybernetic;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.time.LocalDate;
 
 public class CyberneticOrgan
 {
-    private String id;
-    private String type;
-    private Map<String, Range> requirementRanges;
+    /*
+     * Fields of CyberneticOrgan Class
+     */
+    private String id; //Required Format: (ORG-XXXX)
+    private String type; //Required Values: (HEART, LUNG, KIDNEY, LIVER)
+    private String model; //Required Format: ( [type]X-[version] )
+    private int powerLevel; //Range: 1-100
+    private double compatibilityScore; //Range: 0.0 - 1.0
+    private LocalDate manufacturerDate; //Cannot be Future Date
+    private String status; //Valid Values: (AVAILABLE, ALLOCATED, DEFECTIVE)
+    private String manufacturer;
 
-    public CyberneticOrgan(String id, String type) {
-        this.id = id;
-        this.type = type;
-        this.requirementRanges = new HashMap<>();
-    }
-
-    public void addRequirement(String measurementType, double min, double max) {
-        requirementRanges.put(measurementType, new Range(min, max));
-    }
-
-    public Map<String, Range> getRequirements() {
-        return new HashMap<>(requirementRanges);
-    }
-
-    static class Range {
-        double min;
-        double max;
-
-        Range(double min, double max) {
-            this.min = min;
-            this.max = max;
-        }
 
 }

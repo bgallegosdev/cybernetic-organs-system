@@ -1,29 +1,20 @@
 //Work done by Student Name: Benjamin Gallegos
 package com.cybernetic;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.time.LocalDate;
 
 public class Patient {
-    private String id;
+
+    /*
+     * Fields of Patient Class
+     */
+    private String id; //Format: (PAT-XXXX)
     private String name;
-    private Map<String, Double> measurements;  // Stores medical measurements
+    private int age; //Range: 1 - 120
+    private String bloodType; //Valid Values: (A+, A-, B+, B-, AB+, AB-, O+, O-)
+    private String organNeeded; //Valid Values: (A+, A-, B+, B-, AB+, AB-, O+, O-)
+    private int urgencyLevel; //Range: 1 - 10, 10 is most urgent
+    private LocalDate registrationDate;
+    private String status; //Valid Values: (WAITING, MATCHED, TRANSPLANTED)
 
-    public Patient(String id, String name) {
-        this.id = id;
-        this.name = name;
-        this.measurements = new HashMap<>();
-    }
-
-    public void addMeasurement(String type, double value) {
-        measurements.put(type, value);
-    }
-
-    public Double getMeasurement(String type) {
-        return measurements.get(type);
-    }
-
-    public Map<String, Double> getAllMeasurements() {
-        return new HashMap<>(measurements);
-    }
 }
