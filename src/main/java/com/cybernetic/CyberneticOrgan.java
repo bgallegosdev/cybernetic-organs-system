@@ -77,6 +77,7 @@ public class CyberneticOrgan
      * Constructor for CyberneticOrgan Class with arguments
      */
     public CyberneticOrgan(String id, String type, String model, int powerLevel, double compatibility, LocalDate manufacturerDate, String status, String manufacturer) {
+
         this.id = id;
         this.type = type;
         this.model = model;
