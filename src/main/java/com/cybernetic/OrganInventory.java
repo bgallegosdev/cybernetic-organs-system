@@ -36,13 +36,16 @@ public class OrganInventory{
 
     /**
      * Method addOrgan adds an organ to the OrganInventory and does a validation check for valid parameters
+     * @param organ organ to be added to the list if requirements are met
      */
     public void addOrgan(CyberneticOrgan organ){
+        //validating data is within requirements
         if(this.idCheck(organ) && this.manufactureCheck(organ) && this.powerLevelCheck(organ) && this.typeCheck(organ) && this.compatibilityCheck(organ))
         {
-            this.organs.add(organ);
+            this.organs.add(organ); //if so, add organ
         }
         else{
+            //if not valid data, throw exceptions mentioned
             if(!this.idCheck(organ)){
                 throw new IllegalArgumentException("Organ id is not unique.");
             } else if (!this.manufactureCheck(organ)){
@@ -64,7 +67,7 @@ public class OrganInventory{
      * @return check a boolean expression if the id is unique or not
      */
     private boolean idCheck(CyberneticOrgan organ){
-        boolean check = true;
+        boolean check = true; //flag
 
         for(CyberneticOrgan o : organs)
         {
@@ -84,7 +87,7 @@ public class OrganInventory{
      * @return boolean expression if to be added organ is after LocalDate current time
      */
     private boolean manufactureCheck(CyberneticOrgan organ){
-        LocalDate currentTime = LocalDate.now();
+        LocalDate currentTime = LocalDate.now(); //get local time to compare
 
         if(organ.getManufactureDate().isAfter(currentTime)){
             return false;
@@ -150,6 +153,7 @@ public class OrganInventory{
         reason = input.nextLine();
         System.out.println("Reason: " + reason);
 
+        //loop for checking if organ id matches in list
         for(CyberneticOrgan o : organs)
         {
             if(o.getId().equals(organ.getId())){

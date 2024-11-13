@@ -56,6 +56,7 @@ public class Patient {
         name = givenName;
     }
     public void setAge(int ageGiven){
+        //checks if age is in the given range
         if(ageGiven > 0 && ageGiven < 120) {
             age = ageGiven;
         }
@@ -63,6 +64,7 @@ public class Patient {
             throw new IllegalArgumentException("Patient age is invalid");
     }
     public void setBloodType(String blood){
+        //checks if blood type is a valid option: A+, A-, B+, B-, AB+, AB-, O+, O-
         if(blood.equals("A+") || blood.equals("A-") || blood.equals("B+") || blood.equals("B-") || blood.equals("AB+") || blood.equals("AB-") || blood.equals("O+") || blood.equals("O-")) {
             bloodType = blood;
         }
@@ -70,6 +72,7 @@ public class Patient {
             throw new IllegalArgumentException("Patient blood type is invalid");
     }
     public void setOrganNeeded(String needed){
+        //checks if organ needed is a valid option: HEART, LUNG, KIDNEY, LIVER
         if(needed.equals("HEART") || needed.equals("LUNG") || needed.equals("KIDNEY") || needed.equals("LIVER")) {
             organNeeded = needed;
         }
@@ -77,6 +80,7 @@ public class Patient {
             throw new IllegalArgumentException("Patient organ needed is not a valid choice");
     }
     public void setUrgencyLevel(int level){
+        //checks if the level is between 1 and 10
        if(level >= 1 && level <= 10) {
            urgencyLevel = level;
        }else
@@ -86,6 +90,7 @@ public class Patient {
         registrationDate = date;
     }
     public void setStatus(String stat){
+        //all patients must start with WAITING as starting status
         if(stat.equals("WAITING")) {
             status = stat;
         }
@@ -98,8 +103,8 @@ public class Patient {
      */
     public Patient(String id, String givenName, int ageGiven, String blood, String neededOrgan, int level, LocalDate date, String stat) {
 
-        //using setters to validate information
-
+        //using setters to validate information passed to the Patient class
+        //making sure the data meets the requirements
         setId(id);
         setName(givenName);
         setAge(ageGiven);
@@ -114,7 +119,6 @@ public class Patient {
      * Constructor for Patient Class with no-arguments
      */
     public Patient() {
-
         this.id = "";
         this.name = "";
         this.age = 0;
