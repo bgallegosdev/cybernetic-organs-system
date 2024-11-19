@@ -45,6 +45,23 @@ public class SystemOperationsLog {
     }
 
     /**
+     * Method undoLastOperation to undo the last method
+     */
+    public void undoLastOperation() {
+        if (this.list.isEmpty()) {
+            System.out.println("The System Operations Log is empty.");
+            return;
+        }
+
+        SystemOperation lastOperation = this.list.removeLast();
+        if (lastOperation.getReversible()) {
+            System.out.println("The last operation was undone.");
+        } else {
+            System.out.println("The last operation was not reversible.");
+        }
+    }
+
+    /**
      * Method toString to print the list
      * @return the list as a string
      */

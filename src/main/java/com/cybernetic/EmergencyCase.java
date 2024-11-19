@@ -82,6 +82,10 @@ public class EmergencyCase {
         return this.right;
     }
 
+    /*
+     * Overriding toString
+     */
+    @Override
     public String toString() {
         return caseId + " (" + "Severity " + severityLevel + ", " + "Wait time: " + patient.getRegistrationDate() + ")";
     }

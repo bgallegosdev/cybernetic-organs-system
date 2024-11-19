@@ -142,22 +142,22 @@ public class Main {
         EmergencyCase nextCase = emergencyWaitlist.getNextUrgentCase();
         System.out.println(nextCase);
 
-//        System.out.println("\nUpdated EMERG-002 severity to 5");
-//        emergencyWaitlist.updateCaseSeverity("EMERG-002", 5);
-//
-//        System.out.println("New urgent case order:");
-//        EmergencyCase caseX;
-//        int count = 1;
-//        while ((
-//                caseX = emergencyWaitlist.getNextUrgentCase()) != null) {
-//            System.out.println(count++ + ". " + caseX);
-//        }
-//
-//        // System Status Summary
-//        System.out.println("\n4. System Status Summary");
-//        System.out.println("----------------------");
-//        System.out.println("Total transplant records: " + transplantHistory.getRecentTransplants(100).size());
-//        System.out.println("Operations in log: " + operationsLog.getRecentOperations(100).size());
-//        System.out.println("Emergency cases handled: " + (count - 1));
+        System.out.println("\nUpdated EMERG-002 severity to 5");
+        emergencyWaitlist.updateCaseSeverity("EMERG-002", 5);
+
+        System.out.println("New urgent case order:");
+        EmergencyCase caseX;
+        int count = 1;
+        while ((
+                caseX = emergencyWaitlist.getNextUrgentCase()) != null) {
+            System.out.println(count++ + ". " + caseX);
+        }
+
+        // System Status Summary
+        System.out.println("\n4. System Status Summary");
+        System.out.println("----------------------");
+        System.out.println("Total transplant records: " + transplantHistory.getRecentTransplants(100).size());
+        System.out.println("Operations in log: " + operationsLog.getRecentOperations(100).size());
+        System.out.println("Emergency cases handled: " + (count - 1));
     }
 }

@@ -1,5 +1,6 @@
 package com.cybernetic;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,28 +36,23 @@ public class TransplantHistory {
     }
 
     /**
-     * Method printList supports traversal through the list for printing the operation Id
-     * @param record record to be traversed and printed
+     * Method findTransplantByPatient finds and returns transplant by patient id
+     * @param patId patient ID
+     * @return searchNode a node found by patient id or null
      */
-    public void printList(TransplantRecord record){
-        TransplantRecord currentNode = this.head;
-
-        System.out.print("Printing Record: " );
-
-        if(this.head == null)
-        {
-            System.out.println("This Transplant History is empty.");
-            return;
+    public TransplantRecord findTransplantByPatient(String patId){
+        //If list is empty, throw exception
+        if(this.head == null){
+            throw new IllegalArgumentException("Transplant History is empty.");
         }
 
-        //Traverse through the list
-        while(currentNode != null){
-            //Print the data at current node
-            System.out.println("Operation Id: " + currentNode.getOperationId());
-
-            //Got to next node
-            currentNode = currentNode.getNext();
+        //If not, traverse through the list to find node
+        TransplantRecord searchNode = this.head;
+        while(searchNode != null && !searchNode.getPatientId().equals(patId)){
+            searchNode = searchNode.getNext();
         }
+
+        return searchNode; //Will return null if not found
     }
 
     /**
@@ -87,6 +83,57 @@ public class TransplantHistory {
         }
 
         return recordsList;
+    }
+
+    /**
+     * Method getAllTransplantsByDate returns a LinkedList of all transactions listed by date
+     * @param dateTime passed parameter to get the transplants by
+     *
+     */
+    public List<TransplantRecord> getAllTransplantsByDate(LocalDateTime dateTime){
+        List<TransplantRecord> dateTimeList = new ArrayList<>();
+        TransplantRecord searchNode = this.head;
+
+        //Check if empty
+        if (this.head == null) {
+            throw new IllegalArgumentException("This Transplant History is empty");
+        }
+
+        //If not empty, search list for comparable dates and add them to the list
+        while (searchNode != null) {
+            if(searchNode.getTimestamp().equals(dateTime))
+            {
+                dateTimeList.add(searchNode);
+            }
+            searchNode = searchNode.getNext();
+        }
+
+        return dateTimeList;
+    }
+
+    /**
+     * Method printList supports traversal through the list for printing the operation Id
+     * @param record record to be traversed and printed
+     */
+    public void printList(TransplantRecord record){
+        TransplantRecord currentNode = this.head;
+
+        System.out.print("Printing Record: " );
+
+        if(this.head == null)
+        {
+            System.out.println("This Transplant History is empty.");
+            return;
+        }
+
+        //Traverse through the list
+        while(currentNode != null){
+            //Print the data at current node
+            System.out.println("Operation Id: " + currentNode.getOperationId());
+
+            //Got to next node
+            currentNode = currentNode.getNext();
+        }
     }
 
 }
