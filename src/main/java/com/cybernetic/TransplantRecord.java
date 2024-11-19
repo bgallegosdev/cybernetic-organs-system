@@ -30,6 +30,19 @@ public class TransplantRecord {
     }
 
     /*
+     * Constructor for TransplantRecord Class with no-arg
+     */
+    public TransplantRecord(){
+        this.operationId = "";
+        this.patientId = "";
+        this.organId = "";
+        timestamp = LocalDateTime.now();
+        this.surgeon = "";
+        this.outcome = "";
+        this.next = null;
+    }
+
+    /*
      * Getters for TransplantRecord Class
      */
     public String getOperationId() {
@@ -77,5 +90,14 @@ public class TransplantRecord {
     }
     public void setNext(TransplantRecord next) {
         this.next = next;
+    }
+
+    /**
+     * Method toString returns the string representation of the TransplantHistory
+     * @return string representation of the TransplantHistory
+     */
+    @Override
+    public String toString() {
+        return getOperationId() + ": " + getPatientId() + "(" + getOutcome() + ")";
     }
 }

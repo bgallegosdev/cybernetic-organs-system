@@ -1,5 +1,6 @@
 package com.cybernetic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TransplantHistory {
@@ -42,6 +43,12 @@ public class TransplantHistory {
 
         System.out.print("Printing Record: " );
 
+        if(this.head == null)
+        {
+            System.out.println("This Transplant History is empty.");
+            return;
+        }
+
         //Traverse through the list
         while(currentNode != null){
             //Print the data at current node
@@ -52,8 +59,34 @@ public class TransplantHistory {
         }
     }
 
+    /**
+     * Method getRecentTransplants returns the recent number of transplants based on the number of transplants passed
+     * @param numberTransplants is the number of transplants passed
+     * @return recordsList list of the number of recent transplants
+     */
+    public List<TransplantRecord> getRecentTransplants(int numberTransplants) {
+        List<TransplantRecord> recordsList = new ArrayList<>();
+        TransplantRecord currentNode = this.head;
 
-    public List<TransplantRecord> getRecentTransplants(int i) {
+        if (this.head == null) {
+            System.out.println("This Transplant History is empty.");
+            return recordsList;
+        }
 
+        // Use a temporary list to store all records
+        List<TransplantRecord> tempList = new ArrayList<>();
+        while (currentNode != null) {
+            tempList.add(currentNode);
+            currentNode = currentNode.next;
+        }
+
+        // Get the last numberTransplants records by iterating through the tempList in reverse order
+        int start = Math.max(tempList.size() - numberTransplants, 0); // Ensure start is not negative
+        for (int i = tempList.size() - 1; i >= start; i--) {
+            recordsList.add(tempList.get(i));
+        }
+
+        return recordsList;
     }
+
 }
