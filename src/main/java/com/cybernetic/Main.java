@@ -9,7 +9,7 @@ public class Main {
         // Initialize all components
         TransplantHistory transplantHistory = new TransplantHistory();
         SystemOperationsLog operationsLog = new SystemOperationsLog(100);
-//        EmergencyWaitlist emergencyWaitlist = new EmergencyWaitlist();
+        EmergencyWaitlist emergencyWaitlist = new EmergencyWaitlist();
 
         System.out.println("Part 2 - Advanced Data Structures Demo");
         System.out.println("====================================\n");
@@ -74,74 +74,74 @@ public class Main {
         System.out.println("Popped: " + poppedOp.getOperationId());
         System.out.println("Current top: " + operationsLog.peekLastOperation().getOperationId());
 
-//        // 3. Demonstrate Emergency Waitlist
-//        System.out.println("\n3. Emergency Waitlist");
-//        System.out.println("-------------------");
-//        System.out.println("Adding emergency cases...");
-//
-//        // Create sample patients with all required attributes
-//        Patient patient1 = new Patient(
-//                "PAT-001",
-//                "John Doe",
-//                45,
-//                "A+",
-//                "HEART",
-//                8,
-//                LocalDate.now().minusMonths(2),
-//                "WAITING"
-//        );
-//
-//        Patient patient2 = new Patient(
-//                "PAT-002",
-//                "Jane Smith",
-//                52,
-//                "B-",
-//                "LUNG",
-//                7,
-//                LocalDate.now().minusMonths(1),
-//                "WAITING"
-//        );
-//
-//        Patient patient3 = new Patient(
-//                "PAT-003",
-//                "Bob Wilson",
-//                63,
-//                "O+",
-//                "KIDNEY",
-//                9,
-//                LocalDate.now().minusDays(15),
-//                "WAITING"
-//        );
-//
-//        // Create emergency cases with specific registration times
-//        EmergencyCase case1 = new EmergencyCase("EMERG-001",
-//                patient1,
-//                5,
-//                LocalDateTime.now().minusMinutes(45)  // Registered 45 minutes ago
-//        );
-//        emergencyWaitlist.addEmergencyCase(case1);
-//        System.out.println("Added: EMERG-001 (Severity: 5)");
-//
-//        EmergencyCase case2 = new EmergencyCase("EMERG-002",
-//                patient2,
-//                3,
-//                LocalDateTime.now().minusMinutes(30)  // Registered 30 minutes ago
-//        );
-//        emergencyWaitlist.addEmergencyCase(case2);
-//        System.out.println("Added: EMERG-002 (Severity: 3)");
-//
-//        EmergencyCase case3 = new EmergencyCase("EMERG-003",
-//                patient3,
-//                5,
-//                LocalDateTime.now().minusMinutes(15)  // Registered 15 minutes ago
-//        );
-//        emergencyWaitlist.addEmergencyCase(case3);
-//        System.out.println("Added: EMERG-003 (Severity: 5)");
-//
-//        System.out.println("\nNext urgent case:");
-//        EmergencyCase nextCase = emergencyWaitlist.getNextUrgentCase();
-//        System.out.println(nextCase);
-//
+        // 3. Demonstrate Emergency Waitlist
+        System.out.println("\n3. Emergency Waitlist");
+        System.out.println("-------------------");
+        System.out.println("Adding emergency cases...");
+
+        // Create sample patients with all required attributes
+        Patient patient1 = new Patient(
+                "PAT-001",
+                "John Doe",
+                45,
+                "A+",
+                "HEART",
+                8,
+                LocalDate.now().minusMonths(2),
+                "WAITING"
+        );
+
+        Patient patient2 = new Patient(
+                "PAT-002",
+                "Jane Smith",
+                52,
+                "B-",
+                "LUNG",
+                7,
+                LocalDate.now().minusMonths(1),
+                "WAITING"
+        );
+
+        Patient patient3 = new Patient(
+                "PAT-003",
+                "Bob Wilson",
+                63,
+                "O+",
+                "KIDNEY",
+                9,
+                LocalDate.now().minusDays(15),
+                "WAITING"
+        );
+
+        // Create emergency cases with specific registration times
+        EmergencyCase case1 = new EmergencyCase("EMERG-001",
+                patient1,
+                5,
+                LocalDateTime.now().minusMinutes(45)  // Registered 45 minutes ago
+        );
+        emergencyWaitlist.addEmergencyCase(case1);
+        System.out.println("Added: EMERG-001 (Severity: 5)");
+
+        EmergencyCase case2 = new EmergencyCase("EMERG-002",
+                patient2,
+                3,
+                LocalDateTime.now().minusMinutes(30)  // Registered 30 minutes ago
+        );
+        emergencyWaitlist.addEmergencyCase(case2);
+        System.out.println("Added: EMERG-002 (Severity: 3)");
+
+        EmergencyCase case3 = new EmergencyCase("EMERG-003",
+                patient3,
+                5,
+                LocalDateTime.now().minusMinutes(15)  // Registered 15 minutes ago
+        );
+        emergencyWaitlist.addEmergencyCase(case3);
+        System.out.println("Added: EMERG-003 (Severity: 5)");
+
+        System.out.println("\nNext urgent case:");
+        EmergencyCase nextCase = emergencyWaitlist.getNextUrgentCase();
+        System.out.println(nextCase);
+
 //        System.out.println("\nUpdated EMERG-002 severity to 5");
 //        emergencyWaitlist.updateCaseSeverity("EMERG-002", 5);
 //

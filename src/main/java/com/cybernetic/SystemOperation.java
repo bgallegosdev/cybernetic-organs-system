@@ -5,13 +5,13 @@ import java.time.LocalDateTime;
 //Node class for the SystemOperationsLog.java
 public class SystemOperation {
     /*
-     * Fields of TransplantRecord class
+     * Fields of SystemOperation class
      */
-    String operationId;
-    String operationType; //Valid Types: "MATCH", "TRANSPLANT", "EMERGENCY"
-    LocalDateTime timestamp;
-    String description;
-    boolean isReversible;
+    private String operationId;
+    private String operationType; //Valid Types: "MATCH", "TRANSPLANT", "EMERGENCY"
+    private LocalDateTime timestamp;
+    private String description;
+    private boolean isReversible;
 
     /*
      * Constructor for SystemOperation class with arguments

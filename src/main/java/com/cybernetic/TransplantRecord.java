@@ -7,13 +7,13 @@ public class TransplantRecord {
     /*
      * Fields of TransplantRecord class
      */
-    String operationId;
-    String patientId;
-    String organId;
-    LocalDateTime timestamp;
-    String surgeon;
-    String outcome;
-    TransplantRecord next; // for LinkedList implementation
+    private String operationId;
+    private String patientId;
+    private String organId;
+    private LocalDateTime timestamp;
+    private String surgeon;
+    private String outcome;
+    private TransplantRecord next; // for LinkedList implementation
 
     /*
      * Constructor for TransplantRecord Class with arguments

@@ -14,7 +14,7 @@ public class TransplantHistory {
      */
     public TransplantRecord addTransplantRecordAtBeginning(TransplantRecord record) {
         //Create new node with given data
-        TransplantRecord newRecord = new TransplantRecord(record.operationId, record.patientId, record.organId, record.surgeon, record.outcome);
+        TransplantRecord newRecord = new TransplantRecord(record.getOperationId(), record.getPatientId(), record.getOrganId(), record.getSurgeon(), record.getOutcome());
 
         //If list is empty, make new node as head
         if(this.head == null){
@@ -23,11 +23,11 @@ public class TransplantHistory {
         else{
             //Else, traverse to the last node and insert new node there
             TransplantRecord last = this.head;
-            while(last.next != null){
-                last = last.next;
+            while(last.getNext() != null){
+                last = last.getNext();
             }
             //Insert new node at last node
-            last.next = newRecord;
+            last.setNext(newRecord);
         }
 
         //Return list by head
@@ -55,7 +55,7 @@ public class TransplantHistory {
             System.out.println("Operation Id: " + currentNode.getOperationId());
 
             //Got to next node
-            currentNode = currentNode.next;
+            currentNode = currentNode.getNext();
         }
     }
 
@@ -77,7 +77,7 @@ public class TransplantHistory {
         List<TransplantRecord> tempList = new ArrayList<>();
         while (currentNode != null) {
             tempList.add(currentNode);
-            currentNode = currentNode.next;
+            currentNode = currentNode.getNext();
         }
 
         // Get the last numberTransplants records by iterating through the tempList in reverse order
