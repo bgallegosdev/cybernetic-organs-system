@@ -28,7 +28,41 @@ public class EmergencyWaitlist implements Comparator<EmergencyCase> {
      */
     public EmergencyCase addEmergencyCase(EmergencyCase case1) {
         emergencyCases.add(case1);
+
+            //Maintain the BST structure, Start
+            if(root == null){ //if node is empty, add
+                root = new EmergencyCase(case1.getCaseId(), case1.getPatient(), case1.getSeverityLevel(), case1.getRegistrationTime());
+            }
+
+            //if data is less than root's data value, go left
+            if(case1.getSeverityLevel() < root.getSeverityLevel()){
+                root.setLeft(insertNode(root.getLeft(), case1)); //recursive call
+            }
+            else if(case1.getSeverityLevel() > root.getSeverityLevel()){ //if data is more than root's data value, go right
+                root.setRight(insertNode(root.getRight(), case1)); //recursive call
+            }
+            //Maintain the BST structure, End
+
+        //return the new data
         return emergencyCases.peek();
+    }
+
+    //helper method for insert to Maintenance the BST structure only, separate from the PriorityQueue
+    private EmergencyCase insertNode(EmergencyCase root, EmergencyCase case1) {
+        if(root == null){ //if node is empty, add
+            root = new EmergencyCase(case1.getCaseId(), case1.getPatient(), case1.getSeverityLevel(), case1.getRegistrationTime());
+            return root;
+        }
+
+        //if data is less than root's data value, go left
+        if(case1.getSeverityLevel() < root.getSeverityLevel()){
+            root.setLeft(insertNode(root.getLeft(), case1)); //recursive call
+        }
+        else if(case1.getSeverityLevel() > root.getSeverityLevel()){ //if data is more than root's data value, go right
+            root.setRight(insertNode(root.getRight(), case1)); //recursive call
+        }
+        //return the new data
+        return root;
     }
 
     /**
@@ -90,7 +124,10 @@ public class EmergencyWaitlist implements Comparator<EmergencyCase> {
     }
 }
 
-//testing code for BST
+
+
+
+//testing code for BST, not used in the final implementation
 //private EmergencyCase root; //root of the EmergencyWaitlist
 //
 //    /**

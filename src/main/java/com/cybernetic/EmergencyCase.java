@@ -87,7 +87,9 @@ public class EmergencyCase {
      */
     @Override
     public String toString() {
-        return caseId + " (" + "Severity " + severityLevel + ", " + "Wait time: " + patient.getRegistrationDate() + ")";
+        //calculate wait time in minutes, between registration time and current time
+        long waitTimeMinutes = java.time.Duration.between(registrationTime, LocalDateTime.now()).toMinutes();
+        return caseId + " (" + "Severity " + severityLevel + ", " + "Wait time: " + waitTimeMinutes + " min)";
     }
 
 }
